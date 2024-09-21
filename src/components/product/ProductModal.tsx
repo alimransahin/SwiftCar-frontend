@@ -4,9 +4,9 @@ import {
   useGetFilteredProductQuery,
 } from "../../redux/api/productsApi";
 import { toast } from "react-toastify";
-import useBeforeUnload from "../utils/warning";
-import { IProduct } from "../utils/interface";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import useBeforeUnload from "../../utils/warning";
+import { IProduct } from "../../utils/interface";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 type ProductModalProps = {
   onClose: () => void;
   onCreate: () => void;

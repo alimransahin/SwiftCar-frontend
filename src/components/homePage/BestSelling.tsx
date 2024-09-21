@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 import ProductCard from "../product/ProductCard";
 import { useGetFilteredProductQuery } from "../../redux/api/productsApi";
-import { IProduct } from "../utils/interface";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import { IProduct } from "../../utils/interface";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const BestSellingProducts = () => {
   const {

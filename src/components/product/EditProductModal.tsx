@@ -1,12 +1,12 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useBeforeUnload } from "react-router-dom";
 import {
   useEditProductsMutation,
   useGetFilteredProductQuery,
 } from "../../redux/api/productsApi";
 import { toast } from "react-toastify";
-import { IProduct } from "../utils/interface";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import { IProduct } from "../../utils/interface";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 interface EditProductModalProps {
   product: IProduct;

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductCard from "../components/product/ProductCard";
-import { IProduct } from "../components/utils/interface";
+import { IProduct } from "../utils/interface";
 import { useGetFilteredProductQuery } from "../redux/api/productsApi";
-import LoadingSpinner from "../components/utils/LoadingSpinner";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const Product = () => {
   const location = useLocation();
@@ -103,7 +103,7 @@ const Product = () => {
           <select
             value={selectedCategory}
             onChange={handleCategoryChange}
-            className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 "
           >
             <option value="">All Categories</option>
             {uniqueCategoryProducts.map((product) => (

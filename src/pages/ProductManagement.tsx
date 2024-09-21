@@ -8,8 +8,8 @@ import {
   useDeleteProductMutation,
   useGetAllProductQuery,
 } from "../redux/api/productsApi";
-import { IProduct } from "../components/utils/interface";
-import LoadingSpinner from "../components/utils/LoadingSpinner";
+import { IProduct } from "../utils/interface";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const ProductList = () => {
   //get data

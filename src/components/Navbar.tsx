@@ -6,10 +6,10 @@ import { useAppSelector } from "../redux/hooks";
 const Header = () => {
   const menu = [
     { name: "Home", link: "/" },
-    { name: "Products", link: "/products" },
+    // { name: "Products", link: "/products" },
     { name: "About Us", link: "/about" },
-    { name: "Contact Us", link: "/contact" },
-    { name: "Product Manage", link: "/manage" },
+    { name: "Booking", link: "/bookings" },
+    { name: "Contact", link: "/contact" },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,11 +20,19 @@ const Header = () => {
 
   const cartItems = useAppSelector((store) => store.cart.products);
   return (
-    <header className="bg-gradient-to-r from-[#000428]  to-[#004e92] text-white rounded-sm px-3">
+    <header className="bg-gradient-to-r from-primary via-blue-400 to-accent text-white rounded-sm px-3">
       <nav className="container mx-auto flex items-center justify-between space-x-10 py-2 md:py-4 ">
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={handleMenuToggle}
+            className="text-white focus:outline-none"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
         <Link to={"/"}>
           <img
-            src="https://i.ibb.co.com/r6CCXKL/logo.png"
+            src="https://i.ibb.co.com/L5Fn3Vx/cooltext466666084338602.png"
             alt="SwiftCar Logo"
             className="w-60 h-auto"
           />
@@ -36,7 +44,7 @@ const Header = () => {
             {menu.map((item, index) => (
               <li key={index}>
                 <Link
-                  className="rounded-lg backdrop-blur-[2px] p-1 inline-block"
+                  className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center "
                   to={item.link}
                 >
                   {item.name}
@@ -57,26 +65,7 @@ const Header = () => {
               {cartItems.length}
             </span>
           </li>
-
-          <li>
-            <button
-              // onClick={handleToggleTheme}
-              className="rounded-lg backdrop-blur-[2px] p-1 inline-block"
-            >
-              <Heart size={24} />
-            </button>
-          </li>
         </ul>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={handleMenuToggle}
-            className="text-white focus:outline-none"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
       </nav>
 
       {/* Mobile Menu */}

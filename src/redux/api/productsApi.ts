@@ -1,4 +1,4 @@
-import { IProduct } from "../../components/utils/interface";
+import { IProduct } from "../../utils/interface";
 import { baseApi } from "./baseApi";
 
 const productApi = baseApi.injectEndpoints({

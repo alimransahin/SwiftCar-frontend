@@ -3,8 +3,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CategoryCard from "./categoryCard";
 import { useGetFilteredProductQuery } from "../../../redux/api/productsApi";
-import { IProduct } from "../../utils/interface";
-import LoadingSpinner from "../../utils/LoadingSpinner";
+import { IProduct } from "../../../utils/interface";
+import LoadingSpinner from "../../../utils/LoadingSpinner";
 
 const CategoriesSection = () => {
   const {

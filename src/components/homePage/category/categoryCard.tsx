@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { IProduct } from "../../utils/interface";
+import { IProduct } from "../../../utils/interface";
 
 const CategoryCard: React.FC<{ product: IProduct }> = ({ product }) => {
   return (

@@ -3,54 +3,20 @@ import { MapPin, Phone, Mail } from "lucide-react";
 const ContactUs = () => {
   return (
     <section className="bg-gray-100 py-12">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-blue-600 mb-4">Contact Us</h1>
-          <p className="text-lg text-gray-600">
-            We’d love to hear from you. Whether you have a question or need
-            support, feel free to reach out.
+          <h1 className="text-5xl font-bold text-center text-primary">
+            Contact Us
+          </h1>
+          <p className="text-center text-lg text-gray-700 mt-4">
+            Have any questions? We'd love to hear from you. Reach out to us
+            through any of the methods below.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Contact Details */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-blue-500 mb-6">
-              Get in Touch
-            </h2>
-            <ul className="space-y-4">
-              <li className="flex items-center space-x-4">
-                <MapPin size={24} className="text-blue-500" />
-                <span>
-                  Kusholi Bhaban, 4th Floor, 238/1 Begum Rokeya Sharani,
-                  Agargaon, Dhaka-1207
-                </span>
-              </li>
-              <li className="flex items-center space-x-4">
-                <Phone size={24} className="text-blue-500" />
-                <a href="tel:+8809638442121" className="hover:text-blue-400">
-                  +8809638442121
-                </a>
-                ,
-                <a href="tel:+8809604442121" className="hover:text-blue-400">
-                  +8809604442121
-                </a>
-              </li>
-              <li className="flex items-center space-x-4">
-                <Mail size={24} className="text-blue-500" />
-                <a
-                  href="mailto:support@example.com"
-                  className="hover:text-blue-400"
-                >
-                  support@example.com
-                </a>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Form */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-blue-500 mb-6">
+            <h2 className="text-2xl text-center font-semibold text-primary mb-6">
               Send Us a Message
             </h2>
             <form action="#" method="POST" className="space-y-4">
@@ -91,17 +57,51 @@ const ContactUs = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="bg-primary text-white px-4 py-2  rounded-md hover:bg-blue-500 w-full transition-all duration-500"
               >
                 Send Message
               </button>
             </form>
           </div>
+          {/* Contact Details */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-semibold text-center text-primary mb-6">
+              Get in Touch
+            </h2>
+            <ul className="space-y-4">
+              <li className="flex items-center space-x-4">
+                <MapPin size={24} className="text-blue-500" />
+                <span>
+                  Kusholi Bhaban, 4th Floor, 238/1 Begum Rokeya Sharani,
+                  Agargaon, Dhaka-1207
+                </span>
+              </li>
+              <li className="flex items-center space-x-4">
+                <Phone size={24} className="text-blue-500" />
+                <a href="tel:+8809638442121" className="hover:text-blue-400">
+                  +8809638442121
+                </a>
+                ,
+                <a href="tel:+8809604442121" className="hover:text-blue-400">
+                  +8809604442121
+                </a>
+              </li>
+              <li className="flex items-center space-x-4">
+                <Mail size={24} className="text-blue-500" />
+                <a
+                  href="mailto:swiftcar@example.com"
+                  className="hover:text-blue-400"
+                >
+                  swiftcar@example.com
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Map */}
         <div className="mt-12">
-          <h2 className="text-2xl font-semibold text-blue-500 mb-6 text-center">
+          <h2 className="text-2xl font-semibold text-primary mb-6 text-center">
             Find Us Here
           </h2>
           <div className="relative w-full h-64">

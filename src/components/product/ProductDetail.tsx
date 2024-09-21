@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 // import {ImageZoom} from "../utils/"
 import { useAppDispatch } from "../../redux/hooks";
 import { addToCart } from "../../redux/features/cartSlice";
-import { IProduct } from "../utils/interface";
+import { IProduct } from "../../utils/interface";
 import { useGetSingleProductQuery } from "../../redux/api/productsApi";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
