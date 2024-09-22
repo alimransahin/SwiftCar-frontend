@@ -1,12 +1,25 @@
-export interface IProduct {
-  _id?: string;
-  id?: number;
+export interface ICar {
+  _id: string;
   name: string;
-  category: string;
-  qty: number;
-  regularPrice: number;
-  offerPrice?: number;
-  images: string[] | string;
   description: string;
-  quantity?: number | undefined;
+  img?: string;
+  color: string;
+  isElectric: boolean;
+  features: string[];
+  pricePerHour: number;
+  status: string;
+  isDeleted?: boolean;
+}
+
+export interface ICarResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: ICar;
+}
+export interface ICarsResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: ICar[];
 }

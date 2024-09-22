@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IProduct } from "../../utils/interface";
-import { useGetFilteredProductQuery } from "../../redux/api/productsApi";
+import { useGetFilteredProductQuery } from "../../redux/api/carApi";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const FeaturedProducts: React.FC = () => {

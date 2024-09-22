@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import ProductCard from "../product/ProductCard";
-import { useGetFilteredProductQuery } from "../../redux/api/productsApi";
+import ProductCard from "../CarCard";
+import { useGetFilteredProductQuery } from "../../redux/api/carApi";
 import { IProduct } from "../../utils/interface";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 

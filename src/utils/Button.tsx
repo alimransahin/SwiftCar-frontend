@@ -14,9 +14,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({
 }) => {
   return (
     <Link
-      to={href} // Use "href={href}" if not using React Router
+      to={href}
       target={target}
-      className="inline-block px-6 py-3 bg-primary font-bold text-white  rounded-lg shadow-lg hover:bg-accent hover:text-blue-800 transition duration-500 ease-in-out"
+      className="inline-block transition-colors px-6 py-3 from-primary  to-[#424242]  font-bold text-white rounded-lg shadow-lg bg-gradient-to-r hover:from-accent hover:to-primary hover:text-black"
     >
       {text}
     </Link>

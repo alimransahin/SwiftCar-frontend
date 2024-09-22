@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
-import Product from "../pages/Product";
-import ProductDetail from "../components/product/ProductDetail";
-import ProductManagement from "../pages/ProductManagement";
 import Success from "../pages/checkout/Success";
 import Checkout from "../pages/checkout/checkout";
+import Car from "../pages/Car";
+import CarDetail from "../components/CarDetail";
+import NotFound from "../pages/errorPage/NotFound";
+import Signup from "../pages/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +20,8 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/cart",
-        element: <Cart />,
+        path: "/car",
+        element: <Car />,
       },
       {
         path: "/about",
@@ -31,18 +31,18 @@ export const router = createBrowserRouter([
         path: "/contact",
         element: <ContactUs />,
       },
+      // {
+      //   path: "/products",
+      //   element: <Product />,
+      // },
       {
-        path: "/products",
-        element: <Product />,
+        path: "/cars/:id",
+        element: <CarDetail />,
       },
-      {
-        path: "/product/:id",
-        element: <ProductDetail />,
-      },
-      {
-        path: "/manage",
-        element: <ProductManagement />,
-      },
+      // {
+      //   path: "/manage",
+      //   element: <ProductManagement />,
+      // },
       {
         path: "/checkout",
         element: <Checkout />,
@@ -52,8 +52,12 @@ export const router = createBrowserRouter([
         element: <Success />,
       },
       {
-        path: "/success",
-        element: <Success />,
+        path: "/signUp",
+        element: <Signup />,
+      },
+      {
+        path: "*", // Catch-all route
+        element: <NotFound />, // Your 404 component
       },
     ],
   },
