@@ -56,14 +56,19 @@ const Header = () => {
         <ul className="flex items-center space-x-5">
           <li className="relative">
             <Link
-              className="rounded-lg backdrop-blur-[2px] p-1 inline-block"
+              className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
               to={"/cart"}
             >
-              <ShoppingCart size={24} />
+              Log In
             </Link>
-            <span className="rounded-full absolute top-[-10px] left-[20px] bg-primary text-white text-center size-[25px]">
-              {cartItems.length}
-            </span>
+          </li>
+          <li className="relative">
+            <Link
+              className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
+              to={"/cart"}
+            >
+              Sing Up
+            </Link>
           </li>
         </ul>
       </nav>
