@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CategoryCard from "./categoryCard";
-import { useGetFilteredProductQuery } from "../../../redux/api/productsApi";
+import { useGetFilteredProductQuery } from "../../../redux/api/carApi";
 import { IProduct } from "../../../utils/interface";
 import LoadingSpinner from "../../../utils/LoadingSpinner";
 

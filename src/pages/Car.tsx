@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import ProductCard from "../components/product/ProductCard";
-import { IProduct } from "../utils/interface";
-import { useGetFilteredProductQuery } from "../redux/api/productsApi";
 import LoadingSpinner from "../utils/LoadingSpinner";
+import { useGetFilteredCarQuery } from "../redux/api/carApi";
+import { ICar, ICarsResponse } from "../utils/interface";
+import CarCard from "../components/CarCard";
+import NoProductFound from "./errorPage/NoCarFound";
+import SomethingWrong from "./errorPage/SomethingWrong";
 
-const Product = () => {
+const Car = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get("category") || "";
@@ -15,27 +17,20 @@ const Product = () => {
   const [sortOption, setSortOption] = useState("default");
 
   const {
-    data: products = [],
+    data: carsRes = {} as ICarsResponse,
     error,
     isLoading,
-  } = useGetFilteredProductQuery({}) as {
-    data: IProduct[];
+  } = useGetFilteredCarQuery({}) as {
+    data: ICarsResponse;
     error: any;
     isLoading: boolean;
   };
-  console.log(products);
-  const uniqueCategoryProducts = Array.from(
-    products.reduce<Map<string, IProduct>>((acc, product) => {
-      if (!acc.has(product.category)) {
-        acc.set(product.category, product);
-      }
-      return acc;
-    }, new Map())
-  ).map(([, product]) => product);
 
-  useEffect(() => {
-    setSelectedCategory(categoryFromQuery);
-  }, [categoryFromQuery]);
+  if (isLoading || error) {
+    return <LoadingSpinner />;
+  }
+
+  const allCar = carsRes.data?.filter((car) => car.status === "available");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -43,7 +38,6 @@ const Product = () => {
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
-    // Update the URL with the new category filter
     window.history.replaceState(
       null,
       "",
@@ -64,38 +58,37 @@ const Product = () => {
     setSelectedCategory("");
     setPriceRange("0-1000");
     setSortOption("default");
-    // Clear the category filter from the URL
-    window.history.replaceState(null, "", "/products");
+
+    window.history.replaceState(null, "", "/car");
   };
 
-  const filteredProducts = products
-    .filter((product) => {
+  const filteredCars = allCar
+    .filter((car: ICar) => {
       const lowercasedQuery = searchQuery.toLowerCase().trim();
-      const searchField =
-        `${product.name} ${product.description}`.toLowerCase();
+      const searchField = `${car.name} ${car.description}`.toLowerCase();
       return searchField.includes(lowercasedQuery);
     })
-    .filter(
-      (product) =>
-        selectedCategory === "" || product.category === selectedCategory
-    )
-    .filter((product) => {
+
+    .filter((car: ICar) => {
       const [min, max] = priceRange.split("-").map(Number);
-      return product.regularPrice >= min && product.regularPrice <= max;
+      return car.pricePerHour >= min && car.pricePerHour <= max;
     })
-    .sort((a, b) =>
+    .sort((a: ICar, b: ICar) =>
       sortOption === "asc"
-        ? a.regularPrice - b.regularPrice
-        : b.regularPrice - a.regularPrice
+        ? a.pricePerHour - b.pricePerHour
+        : b.pricePerHour - a.pricePerHour
     );
 
-  if (isLoading || error) {
+  if (isLoading) {
     return <LoadingSpinner />;
+  }
+  if (error) {
+    <SomethingWrong />;
   }
   return (
     <div className="container mx-auto px-4 mb-12">
       <h1 className="text-4xl font-bold my-10 text-center text-blue-400">
-        All Products
+        All Car
       </h1>
 
       <div className="flex flex-col-reverse xl:flex-row justify-between items-center mb-6">
@@ -106,11 +99,6 @@ const Product = () => {
             className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 "
           >
             <option value="">All Categories</option>
-            {uniqueCategoryProducts.map((product) => (
-              <option key={product.category} value={product.category}>
-                {product.category}
-              </option>
-            ))}
           </select>
 
           <select
@@ -139,7 +127,7 @@ const Product = () => {
 
           <button
             onClick={handleClearFilters}
-            className="px-6 py-3 border-2 border-[#004e92] text-[#004e92] rounded-lg font-bold transition-all duration-500 ease-in-out bg-gradient-to-r hover:from-[#000428] hover:to-[#004e92] hover:text-white"
+            className="px-6 py-3 border-2 border-primary text-primary rounded-lg font-bold transition-all duration-500 ease-in-out bg-gradient-to-r hover:from-black hover:to-primary hover:text-white"
           >
             Clear Filters
           </button>
@@ -156,13 +144,17 @@ const Product = () => {
         </div>
       </div>
 
-      <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 lg:gap-10">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
-      </div>
+      {filteredCars.length > 0 ? (
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 lg:gap-10">
+          {filteredCars.map((car: ICar) => (
+            <CarCard key={car._id} car={car} />
+          ))}
+        </div>
+      ) : (
+        <NoProductFound />
+      )}
     </div>
   );
 };
 
-export default Product;
+export default Car;
