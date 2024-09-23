@@ -1,9 +1,10 @@
-import { ShoppingCart, Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
 
 const Header = () => {
+  const token = localStorage.getItem("accessToken");
   const menu = [
     { name: "Home", link: "/" },
     // { name: "Products", link: "/products" },
@@ -18,7 +19,6 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const cartItems = useAppSelector((store) => store.cart.products);
   return (
     <header className="bg-gradient-to-r from-primary via-blue-400 to-accent text-white rounded-sm px-3">
       <nav className="container mx-auto flex items-center justify-between space-x-10 py-2 md:py-4 ">
@@ -57,7 +57,7 @@ const Header = () => {
           <li className="relative">
             <Link
               className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
-              to={"/cart"}
+              to={"/signin"}
             >
               Log In
             </Link>
@@ -65,7 +65,7 @@ const Header = () => {
           <li className="relative">
             <Link
               className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
-              to={"/cart"}
+              to={"/signup"}
             >
               Sing Up
             </Link>

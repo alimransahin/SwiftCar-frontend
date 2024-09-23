@@ -1,19 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "../../utils/interface";
 
-interface UserState {
-  name: string;
-  email: string;
-  role: string;
-  password: string;
-  phone: string;
-  address: string;
-}
-
-const initialState: UserState = {
+const initialState: IUser = {
   name: "",
   email: "",
   role: "user",
   password: "",
+  cpassword: "",
   phone: "",
   address: "",
 };
@@ -24,7 +17,7 @@ const authSlice = createSlice({
   reducers: {
     setFormField: (
       state,
-      action: PayloadAction<{ field: keyof UserState; value: string }>
+      action: PayloadAction<{ field: keyof IUser; value: string }>
     ) => {
       state[action.payload.field] = action.payload.value;
     },

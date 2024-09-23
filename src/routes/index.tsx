@@ -3,12 +3,12 @@ import App from "../App";
 import Home from "../pages/Home";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
-import Success from "../pages/checkout/Success";
 import Checkout from "../pages/checkout/checkout";
 import Car from "../pages/Car";
 import CarDetail from "../components/CarDetail";
 import NotFound from "../pages/errorPage/NotFound";
 import Signup from "../pages/SignUp";
+import SignIn from "../pages/SignIn";
 
 export const router = createBrowserRouter([
   {
@@ -48,8 +48,8 @@ export const router = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: "/payment",
-        element: <Success />,
+        path: "/signin",
+        element: <SignIn />,
       },
       {
         path: "/signUp",

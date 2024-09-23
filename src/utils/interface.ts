@@ -23,3 +23,12 @@ export interface ICarsResponse {
   message: string;
   data: ICar[];
 }
+export interface IUser {
+  name: string;
+  email: string;
+  role: string;
+  password: string;
+  cpassword?: string;
+  phone: string;
+  address: string;
+}

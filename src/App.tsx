@@ -7,7 +7,12 @@ const App = () => {
   return (
     <div className="min-h-screen w-full">
       <MainLayout />
-      <ToastContainer position="top-center" theme="colored" />
+      <ToastContainer
+        position="top-center"
+        theme="colored"
+        autoClose={2000}
+        pauseOnHover={false}
+      />
     </div>
   );
 };
