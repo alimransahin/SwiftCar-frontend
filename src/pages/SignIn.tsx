@@ -26,7 +26,10 @@ const SignIn = () => {
 
     try {
       const response = await signin(formData).unwrap();
-      localStorage.setItem("accessToken", response.token);
+      const accessToken = response.token;
+      console.log(accessToken);
+      localStorage.setItem("accessToken", accessToken);
+
       toast.success("Sign In successful!");
       navigate("/");
     } catch (err: any) {
