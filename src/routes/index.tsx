@@ -9,6 +9,7 @@ import CarDetail from "../components/CarDetail";
 import NotFound from "../pages/errorPage/NotFound";
 import Signup from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
+import DashboardLayout from "../components/layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -20,15 +21,15 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/car",
+        path: "car",
         element: <Car />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <AboutUs />,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <ContactUs />,
       },
       // {
@@ -48,16 +49,26 @@ export const router = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: "/signin",
+        path: "signin",
         element: <SignIn />,
       },
       {
-        path: "/signUp",
+        path: "signUp",
         element: <Signup />,
       },
       {
         path: "*", // Catch-all route
         element: <NotFound />, // Your 404 component
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "signin",
+        element: <SignIn />,
       },
     ],
   },
