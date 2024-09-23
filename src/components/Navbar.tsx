@@ -1,10 +1,32 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
+import { jwtDecode } from "jwt-decode";
 
 const Header = () => {
+  const isTokenExpired = (token: string) => {
+    try {
+      const decodedToken = jwtDecode<{
+        exp: number;
+        email: string;
+        name?: string;
+      }>(token);
+      const currentTime = Date.now() / 1000;
+      console.log(decodedToken);
+      return decodedToken.exp < currentTime; // Returns true if the token is expired
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return true; // If there's an error, consider the token invalid
+    }
+  };
+  // const token = localStorage.getItem("accessToken");
+  // Example usage:
   const token = localStorage.getItem("accessToken");
+  console.log(token);
+  if (token && isTokenExpired(token)) {
+    localStorage.removeItem("accessToken");
+    // Redirect or show a message to log in again
+  }
   const menu = [
     { name: "Home", link: "/" },
     // { name: "Products", link: "/products" },
