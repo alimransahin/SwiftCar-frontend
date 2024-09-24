@@ -6,7 +6,7 @@ import SignOut from "./SignOut";
 
 const Header = () => {
   const userInfo = useAppSelector((store) => store.auth.user);
-  console.log(userInfo);
+  console.log(userInfo?.role);
   const menu = [
     { name: "Home", link: "/" },
     // { name: "Products", link: "/products" },

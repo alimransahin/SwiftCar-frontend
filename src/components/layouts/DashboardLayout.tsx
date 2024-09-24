@@ -6,9 +6,19 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
-
+const siderStyle: React.CSSProperties = {
+  overflow: "auto",
+  height: "100vh",
+  position: "fixed",
+  insetInlineStart: 0,
+  top: 0,
+  bottom: 0,
+  scrollbarWidth: "thin",
+  scrollbarColor: "unset",
+};
 const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
   key,
   label: `nav ${key}`,
@@ -54,7 +64,7 @@ const DashboardLayout: React.FC = () => {
         />
       </Header>
       <Layout>
-        <Sider width={200} style={{ background: colorBgContainer }}>
+        <Sider width={200} style={siderStyle}>
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
@@ -69,15 +79,16 @@ const DashboardLayout: React.FC = () => {
             style={{ margin: "16px 0" }}
           />
           <Content
+            className="min-h-screen"
             style={{
+              overflow: "initial",
               padding: 24,
               margin: 0,
-              minHeight: 280,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
           >
-            Content
+            <Outlet />
           </Content>
         </Layout>
       </Layout>

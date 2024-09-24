@@ -32,8 +32,8 @@ const HomepegeFooter = () => {
             </a>
           </li>
           <li>
-            <a href="/help" className="hover:underline">
-              Help
+            <a href="/faq" className="hover:underline">
+              FAQ
             </a>
           </li>
           <li>

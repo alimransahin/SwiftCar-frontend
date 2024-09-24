@@ -24,7 +24,10 @@ const WhyChooseUs = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
           {chooses.map((choose) => (
-            <div className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
+            <div
+              key={choose.head}
+              className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105"
+            >
               <h3 className="text-xl font-semibold text-[#004e92]">
                 {choose.head}
               </h3>

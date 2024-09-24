@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSignupMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface SignupFormValues {
   name: string;
@@ -12,6 +13,7 @@ interface SignupFormValues {
   cpassword: string;
   phone?: string;
   address?: string;
+  termsAccepted: boolean; // Field for terms acceptance
 }
 
 const Signup = () => {
@@ -37,6 +39,11 @@ const Signup = () => {
     }
 
     setPasswordError("");
+
+    if (!data.termsAccepted) {
+      toast.error("You must accept the Terms & Conditions.");
+      return;
+    }
 
     const { cpassword, ...submittedData } = data;
 
@@ -143,6 +150,40 @@ const Signup = () => {
           />
         </div>
 
+        {/* Terms & Conditions, Privacy Policy Links */}
+        <div className="mb-4 items-start">
+          <input
+            type="checkbox"
+            {...register("termsAccepted", { required: true })}
+            className="mr-2 mt-1"
+          />
+          <label className="text-sm">
+            I read and accept the{" "}
+            <a
+              href="/terms-and-conditions" // Replace with your actual terms document link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#004e92] underline"
+            >
+              Terms & Conditions
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy-policy" // Replace with your actual privacy policy document link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#004e92]  underline"
+            >
+              Privacy Policy
+            </a>
+          </label>
+          {errors.termsAccepted && (
+            <p className="text-red-500 text-sm ml-4">
+              You must accept these terms
+            </p>
+          )}
+        </div>
+
         <button
           type="submit"
           className="w-full bg-[#004e92] text-white font-bold py-2 px-4 rounded hover:bg-[#003b73]"
@@ -150,6 +191,17 @@ const Signup = () => {
         >
           {isLoading ? "Submitting..." : "Sign Up"}
         </button>
+
+        {/* Sign In Instead Link */}
+        <p className="mt-4 text-sm">
+          Already have an account?{" "}
+          <Link
+            to="/signin"
+            className="text-[#004e92] font-bold hover:underline"
+          >
+            Sign In Instead
+          </Link>
+        </p>
       </form>
     </div>
   );
