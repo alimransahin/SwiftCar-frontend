@@ -1,0 +1,35 @@
+import React from "react";
+import type { MenuProps } from "antd";
+import { Dropdown, message, Space } from "antd";
+import { CircleUserRound } from "lucide-react";
+
+const onClick: MenuProps["onClick"] = ({ key }) => {
+  message.info(`Click on item ${key}`);
+};
+
+const items: MenuProps["items"] = [
+  {
+    label: "1st menu item",
+    key: "1",
+  },
+  {
+    label: "2nd menu item",
+    key: "2",
+  },
+  {
+    label: "3rd menu item",
+    key: "3",
+  },
+];
+
+const SignOut: React.FC = () => (
+  <Dropdown menu={{ items, onClick }}>
+    <a onClick={(e) => e.preventDefault()}>
+      <Space>
+        <CircleUserRound />
+      </Space>
+    </a>
+  </Dropdown>
+);
+
+export default SignOut;

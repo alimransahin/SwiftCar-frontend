@@ -2,6 +2,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
+import SignOut from "./SignOut";
 
 const Header = () => {
   const userInfo = useAppSelector((store) => store.auth.user);
@@ -56,7 +57,7 @@ const Header = () => {
         </div>
         <ul className="flex items-center space-x-5">
           {userInfo?.name ? (
-            <>ok</>
+            <SignOut />
           ) : (
             <>
               <li className="relative">
