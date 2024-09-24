@@ -5,7 +5,7 @@ const HeroSection = () => {
     <div className="relative">
       {/* Background Image */}
       <div
-        className="bg-cover bg-center h-screen"
+        className="bg-cover bg-center h-screen shadow-md"
         style={{
           backgroundImage: `url("https://i.ibb.co.com/Yjp4Kcr/about.jpg")`,
         }}
@@ -23,66 +23,66 @@ const HeroSection = () => {
           </p>
           <LinkButton text="Book Now" href="'/" />
         </div>
-      </div>
 
-      <div className="relative  bottom-10 -mb-8 mx-auto w-full max-w-5xl bg-white p-6 rounded-lg shadow-lg z-20">
-        <form className="flex flex-wrap items-center justify-between gap-4">
-          {/* Location Input */}
-          <div className="w-full md:w-1/4">
-            <label
-              htmlFor="location"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Location
-            </label>
-            <input
-              type="text"
-              id="location"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Enter location"
-            />
-          </div>
+        <div className="relative -m-[132px] mx-auto w-full max-w-5xl bg-white p-6 hidden lg:block rounded-t-lg z-20">
+          <form className="flex items-center justify-between gap-2">
+            {/* Location Input */}
+            <div className="w-full md:w-1/4">
+              <label
+                htmlFor="location"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Enter location"
+              />
+            </div>
 
-          {/* Pick-up Date Input */}
-          <div className="w-full md:w-1/4">
-            <label
-              htmlFor="pickup"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Pick-up Date
-            </label>
-            <input
-              type="date"
-              id="pickup"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
+            {/* Pick-up Date Input */}
+            <div className="w-full md:w-1/4">
+              <label
+                htmlFor="pickup"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Pick-up Date
+              </label>
+              <input
+                type="date"
+                id="pickup"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
 
-          {/* Drop-off Date Input */}
-          <div className="w-full md:w-1/4">
-            <label
-              htmlFor="dropoff"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Drop-off Date
-            </label>
-            <input
-              type="date"
-              id="dropoff"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
+            {/* Drop-off Date Input */}
+            <div className="w-full md:w-1/4">
+              <label
+                htmlFor="dropoff"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Drop-off Date
+              </label>
+              <input
+                type="date"
+                id="dropoff"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
 
-          {/* Search Button */}
-          <div className="w-full flex justify-center md:w-auto">
-            <button
-              type="submit"
-              className="w-full  md:w-auto border border-gray-300 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-8"
-            >
-              Check Availability
-            </button>
-          </div>
-        </form>
+            {/* Search Button */}
+            <div className="w-full flex justify-center md:w-auto">
+              <button
+                type="submit"
+                className="w-full  md:w-auto border border-gray-300 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-8"
+              >
+                Check Availability
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

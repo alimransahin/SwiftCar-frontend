@@ -145,7 +145,7 @@ const Car = () => {
       </div>
 
       {filteredCars.length > 0 ? (
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 lg:gap-10">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 ">
           {filteredCars.map((car: ICar) => (
             <CarCard key={car._id} car={car} />
           ))}

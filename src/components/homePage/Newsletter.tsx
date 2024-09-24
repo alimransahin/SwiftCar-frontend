@@ -1,11 +1,11 @@
 const Newsletter = () => {
   return (
-    <div className="py-12 bg-gradient-to-br from-[#004e92] to-[#000428] text-white ">
+    <div className="py-12 bg-primary text-white ">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-semibold mb-4">Stay Updated!</h2>
         <p className="text-lg mb-6 px-4">
-          Subscribe to our newsletter for the latest updates on new products,
-          deals, and exclusive offers.
+          Subscribe to our newsletter for the latest updates on new car
+          arrivals, exclusive deals, and special rental offers.
         </p>
 
         {/* Newsletter Form */}

@@ -3,7 +3,7 @@ import LinkButton from "../utils/Button";
 
 const CarCard = ({ car }: { car: ICar }) => {
   return (
-    <div className="product-card border rounded-lg p-4 shadow-lg">
+    <div className="product-card border rounded-lg p-4 m-4 shadow-lg">
       <img
         src={car.img}
         alt={car.name}

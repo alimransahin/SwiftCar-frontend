@@ -1,10 +1,9 @@
 import HeroSection from "../components/homePage/Hero";
-import FAQ from "../components/homePage/Faq";
-// import BestSellingProducts from "../components/homePage/BestSelling";
-// import CategoriesSection from "../components/homePage/category/Category";
-import FeaturedProducts from "../components/homePage/FeaturedProsucts";
 import Newsletter from "../components/homePage/Newsletter";
 import CustomerReview from "../components/homePage/CustomerReview";
+import FeaturedCars from "../components/homePage/FeaturedProsucts";
+import WhyChooseUs from "../components/homePage/WhyChooseUs";
+import HomepegeFooter from "../components/homePage/HomepegeFooter";
 
 const Home = () => {
   return (
@@ -12,10 +11,11 @@ const Home = () => {
       <HeroSection />
       {/* <BestSellingProducts /> */}
       {/* <CategoriesSection /> */}
-      {/* <FeaturedProducts /> */}
-      <FAQ />
+      <FeaturedCars />
+      <WhyChooseUs />
       <CustomerReview />
       <Newsletter />
+      <HomepegeFooter />
     </div>
   );
 };
