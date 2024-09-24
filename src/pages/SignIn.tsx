@@ -9,7 +9,7 @@ import { FieldValues, useForm } from "react-hook-form";
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [signin, { isLoading }] = useSigninMutation();
+  const [signin] = useSigninMutation();
 
   const {
     register,
@@ -18,7 +18,7 @@ const SignIn = () => {
   } = useForm<FieldValues>();
   const onSubmit = async (data: FieldValues) => {
     try {
-      const response = await signin(data).unwrap();
+      const response: any = await signin(data).unwrap();
       const accessToken = response.token;
       const decodedToken = jwtDecode(accessToken);
       localStorage.setItem("accessToken", accessToken);
@@ -26,7 +26,9 @@ const SignIn = () => {
       navigate("/");
       toast.success("Sign In successful!");
     } catch (err: any) {
-      console.log(err);
+      if (err.status === "FETCH_ERROR") {
+        toast.error("cannot connect with server. please wait a few minutes");
+      }
       toast.error(err?.data?.message);
     }
   };
