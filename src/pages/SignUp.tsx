@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { setFormField } from "../redux/features/authSlice";
+// import { setFormField } from "../redux/features/authSlice";
 import { useSignupMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ const Signup = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    dispatch(setFormField({ field: name as keyof typeof formData, value }));
+    // dispatch(setFormField({ field: name as keyof typeof formData, value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

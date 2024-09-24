@@ -1,32 +1,11 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { useAppSelector } from "../redux/hooks";
 
 const Header = () => {
-  const isTokenExpired = (token: string) => {
-    try {
-      const decodedToken = jwtDecode<{
-        exp: number;
-        email: string;
-        name?: string;
-      }>(token);
-      const currentTime = Date.now() / 1000;
-      console.log(decodedToken);
-      return decodedToken.exp < currentTime; // Returns true if the token is expired
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return true; // If there's an error, consider the token invalid
-    }
-  };
-  // const token = localStorage.getItem("accessToken");
-  // Example usage:
-  const token = localStorage.getItem("accessToken");
-  console.log(token);
-  if (token && isTokenExpired(token)) {
-    localStorage.removeItem("accessToken");
-    // Redirect or show a message to log in again
-  }
+  const userInfo = useAppSelector((store) => store.auth.user);
+  console.log(userInfo);
   const menu = [
     { name: "Home", link: "/" },
     // { name: "Products", link: "/products" },
@@ -76,22 +55,28 @@ const Header = () => {
           </ul>
         </div>
         <ul className="flex items-center space-x-5">
-          <li className="relative">
-            <Link
-              className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
-              to={"/signin"}
-            >
-              Log In
-            </Link>
-          </li>
-          <li className="relative">
-            <Link
-              className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
-              to={"/signup"}
-            >
-              Sing Up
-            </Link>
-          </li>
+          {userInfo?.name ? (
+            <>ok</>
+          ) : (
+            <>
+              <li className="relative">
+                <Link
+                  className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
+                  to={"/signin"}
+                >
+                  Log In
+                </Link>
+              </li>
+              <li className="relative">
+                <Link
+                  className=" p-1 inline-block border-b-4 border-transparent  hover:border-white transition duration-500 text-lg font-bold text-center"
+                  to={"/signup"}
+                >
+                  Sing Up
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
 

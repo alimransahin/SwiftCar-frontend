@@ -1,29 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../utils/interface";
 
-const initialState: IUser = {
-  name: "",
-  email: "",
-  role: "user",
-  password: "",
-  cpassword: "",
-  phone: "",
-  address: "",
+type TAuthState = {
+  user: null | IUser;
+  token: null | string;
 };
 
+const initialState: TAuthState = {
+  user: null,
+  token: null,
+};
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setFormField: (
-      state,
-      action: PayloadAction<{ field: keyof IUser; value: string }>
-    ) => {
-      state[action.payload.field] = action.payload.value;
+    setUser: (state, action) => {
+      const { user, token } = action.payload;
+      state.user = user;
+      state.token = token;
     },
-    resetForm: () => initialState,
+    logOut: (state) => {
+      state.user = null;
+      state.token = null;
+    },
   },
 });
 
-export const { setFormField, resetForm } = authSlice.actions;
+export const { setUser, logOut } = authSlice.actions;
+export const selectUser = (state: { auth: TAuthState }) => state.auth.user;
 export default authSlice.reducer;

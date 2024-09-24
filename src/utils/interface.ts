@@ -10,7 +10,10 @@ export interface ICar {
   status: string;
   isDeleted?: boolean;
 }
-
+export interface IUserInfo {
+  name: string;
+  email: string;
+}
 export interface ICarResponse {
   success: boolean;
   statusCode: number;

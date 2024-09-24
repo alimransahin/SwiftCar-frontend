@@ -4,8 +4,8 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
 
   baseQuery: fetchBaseQuery({
-    // baseUrl: "http://localhost:5000/api",
-    baseUrl: "https://rent-car-red.vercel.app/api/",
+    baseUrl: "http://localhost:5000/api",
+    // baseUrl: "https://rent-car-red.vercel.app/api/",
     prepareHeaders: (headers) => {
       // Get the token from localStorage
       const token = localStorage.getItem("accessToken");

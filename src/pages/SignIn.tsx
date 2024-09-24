@@ -1,37 +1,30 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { setFormField } from "../redux/features/authSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/features/authSlice";
 import { useSigninMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { FieldValues, useForm } from "react-hook-form";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
-
-  // Hook for the signup mutation
   const [signin, { isLoading }] = useSigninMutation();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    dispatch(setFormField({ field: name as keyof typeof formData, value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FieldValues>();
+  const onSubmit = async (data: FieldValues) => {
     try {
-      const response = await signin(formData).unwrap();
+      const response = await signin(data).unwrap();
       const accessToken = response.token;
-      console.log(accessToken);
+      const decodedToken = jwtDecode(accessToken);
       localStorage.setItem("accessToken", accessToken);
-
-      toast.success("Sign In successful!");
+      dispatch(setUser({ user: decodedToken, token: accessToken }));
       navigate("/");
+      toast.success("Sign In successful!");
     } catch (err: any) {
       console.log(err);
       toast.error(err?.data?.message);
@@ -41,7 +34,7 @@ const SignIn = () => {
   return (
     <div className="bg-gradient-to-br from-[#f8bf304d] to-primary text-blue-900 text-center flex items-center justify-center py-16">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="bg-yellow-50 p-6 rounded-lg shadow-lg w-full max-w-md my-16 text-start"
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
@@ -51,9 +44,7 @@ const SignIn = () => {
           <label className="block text-sm font-semibold mb-2">Email</label>
           <input
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+            {...register("email")}
             className="w-full p-2 border border-gray-300 rounded"
             required
           />
@@ -64,9 +55,7 @@ const SignIn = () => {
           <label className="block text-sm font-semibold mb-2">Password</label>
           <input
             type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
+            {...register("password")}
             className="w-full p-2 border border-gray-300 rounded"
             required
           />
@@ -75,9 +64,9 @@ const SignIn = () => {
         <button
           type="submit"
           className="w-full bg-[#004e92] text-white font-bold py-2 px-4 rounded hover:bg-[#003b73]"
-          disabled={isLoading}
+          disabled={isSubmitting}
         >
-          {isLoading ? "Submitting..." : "Sign In"}
+          {isSubmitting ? "Submitting..." : "Sign In"}
         </button>
       </form>
     </div>
