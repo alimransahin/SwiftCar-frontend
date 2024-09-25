@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ICar {
   _id: string;
   name: string;
@@ -35,4 +37,22 @@ export interface IUser {
   cpassword?: string;
   phone: string;
   address: string;
+}
+
+export interface IRoute {
+  path: string;
+  element: ReactNode;
+}
+
+export interface ISidebarItem {
+  key: string;
+  label: ReactNode;
+  children?: ISidebarItem[] | null;
+}
+
+export interface IUserPath {
+  name?: string;
+  path?: string;
+  element?: ReactNode;
+  children?: IUserPath[];
 }
