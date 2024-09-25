@@ -24,7 +24,8 @@ const SignIn = () => {
       const decodedToken: any = jwtDecode(accessToken);
       localStorage.setItem("accessToken", accessToken);
       dispatch(setUser({ user: decodedToken, token: accessToken }));
-      navigate(`/${decodedToken.role}`);
+      // navigate(`/${decodedToken.role}`);
+      navigate(`/`);
       toast.success("Sign In successful!");
     } catch (err: any) {
       if (err.status === "FETCH_ERROR") {
