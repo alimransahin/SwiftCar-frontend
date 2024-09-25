@@ -31,7 +31,7 @@ export const frontendRoutes = [
     element: <ContactUs />,
   },
   {
-    path: "/cars/:id",
+    path: "cars/:id",
     element: <CarDetail />,
   },
   {

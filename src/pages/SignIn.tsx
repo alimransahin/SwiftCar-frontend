@@ -30,8 +30,8 @@ const SignIn = () => {
       };
       login(userInfo);
       // dispatch(setUser({ user: decodedToken, token: accessToken }));
-      // navigate(`/${decodedToken.role}`);
-      navigate(`/`);
+      navigate(`/${decodedToken.role}`);
+      // navigate(`/`);
       toast.success("Sign In successful!");
     } catch (err: any) {
       if (err.status === "FETCH_ERROR") {

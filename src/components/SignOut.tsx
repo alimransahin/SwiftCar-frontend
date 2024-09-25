@@ -23,7 +23,7 @@ const SignOut: React.FC = () => {
       <a onClick={(e) => e.preventDefault()}>
         <Space>
           <CircleUserRound />
-          <b>{user.name}</b>
+          <b>{user?.name}</b>
         </Space>
       </a>
     </Dropdown>
