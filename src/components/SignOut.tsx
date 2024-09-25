@@ -16,6 +16,7 @@ const SignOut: React.FC = () => {
     try {
       dispatch(logOut());
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("userName");
       toast.success("Log Out successful!");
       navigate("/");
     } catch (err: any) {

@@ -24,6 +24,8 @@ const SignIn = () => {
       const decodedToken: any = jwtDecode(accessToken);
       localStorage.setItem("accessToken", accessToken);
       dispatch(setUser({ user: decodedToken, token: accessToken }));
+      console.log(decodedToken.name);
+      localStorage.setItem("userName", decodedToken.name);
       // navigate(`/${decodedToken.role}`);
       navigate(`/`);
       toast.success("Sign In successful!");
