@@ -20,7 +20,7 @@ const CarDetail = () => {
   const car = getCar?.data;
   console.log(car);
 
-  // Handle loading and error states before accessing the car data
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -74,19 +74,6 @@ const CarDetail = () => {
 
           <div className="flex items-center align-middle space-x-4 mb-6">
             <LinkButton text="Book Now" href="/bookings" />
-            {/* <button
-              onClick={() => handleAddToCart(product)}
-              className="px-6 py-3 bg-[#004e92] text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-[#000428] hover:to-[#004e92] transform transition-transform hover:scale-105"
-            >
-              Add to Cart
-            </button> */}
-
-            {/* <button
-              onClick={handleAddToWishlist}
-              className="px-6 py-3 border-2 border-[#004e92] text-[#004e92] rounded-lg font-bold transition-all duration-500 ease-in-out bg-gradient-to-r hover:from-[#000428] hover:to-[#004e92] hover:text-white"
-            >
-              Add to Wishlist
-            </button> */}
           </div>
         </div>
       </div>

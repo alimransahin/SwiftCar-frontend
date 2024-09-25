@@ -1,28 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
 import { CircleUserRound } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-
-import { logOut } from "../redux/features/authSlice";
+import { AuthContext } from "../utils/AuthContext";
 
 const SignOut: React.FC = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { user, logout } = useContext<any>(AuthContext);
 
   const onClick: MenuProps["onClick"] = () => {
-    try {
-      dispatch(logOut());
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userName");
-      toast.success("Log Out successful!");
-      navigate("/");
-    } catch (err: any) {
-      console.log(err);
-      toast.error(err?.data?.message || "Log Out failed!");
-    }
+    logout();
   };
 
   const items: MenuProps["items"] = [
@@ -37,6 +23,7 @@ const SignOut: React.FC = () => {
       <a onClick={(e) => e.preventDefault()}>
         <Space>
           <CircleUserRound />
+          <b>{user.name}</b>
         </Space>
       </a>
     </Dropdown>

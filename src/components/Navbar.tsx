@@ -1,15 +1,13 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
 import SignOut from "./SignOut";
+import { AuthContext } from "../utils/AuthContext";
 
 const Header = () => {
-  const userInfo = useAppSelector((store) => store.auth.user);
-  console.log(userInfo?.role);
+  const { user } = useContext<any>(AuthContext);
   const menu = [
     { name: "Home", link: "/" },
-    // { name: "Products", link: "/products" },
     { name: "About Us", link: "/about" },
     { name: "Booking", link: "/car" },
     { name: "Contact", link: "/contact" },
@@ -56,7 +54,7 @@ const Header = () => {
           </ul>
         </div>
         <ul className="flex items-center space-x-5">
-          {userInfo?.name ? (
+          {user ? (
             <SignOut />
           ) : (
             <>

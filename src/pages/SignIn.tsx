@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/features/authSlice";
 import { useSigninMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { FieldValues, useForm } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthContext";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const { login } = useContext<any>(AuthContext);
   const navigate = useNavigate();
   const [signin] = useSigninMutation();
 
@@ -23,9 +23,13 @@ const SignIn = () => {
       const accessToken = response.token;
       const decodedToken: any = jwtDecode(accessToken);
       localStorage.setItem("accessToken", accessToken);
-      dispatch(setUser({ user: decodedToken, token: accessToken }));
-      console.log(decodedToken.name);
-      localStorage.setItem("userName", decodedToken.name);
+      const userInfo = {
+        name: decodedToken.name,
+        email: decodedToken.email,
+        role: decodedToken.role,
+      };
+      login(userInfo);
+      // dispatch(setUser({ user: decodedToken, token: accessToken }));
       // navigate(`/${decodedToken.role}`);
       navigate(`/`);
       toast.success("Sign In successful!");

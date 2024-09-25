@@ -9,8 +9,6 @@ const Home = () => {
   return (
     <div>
       <HeroSection />
-      {/* <BestSellingProducts /> */}
-      {/* <CategoriesSection /> */}
       <FeaturedCars />
       <WhyChooseUs />
       <CustomerReview />

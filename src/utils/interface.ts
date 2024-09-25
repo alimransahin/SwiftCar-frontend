@@ -13,6 +13,7 @@ export interface ICar {
 export interface IUserInfo {
   name: string;
   email: string;
+  token?: string;
 }
 export interface ICarResponse {
   success: boolean;

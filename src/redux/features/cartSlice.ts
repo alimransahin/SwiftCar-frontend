@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
-// Define the initial state using that type
+
 const initialState = {
   products: [] as any,
   selectedItems: 0,
