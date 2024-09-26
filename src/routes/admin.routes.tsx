@@ -1,55 +1,45 @@
 import AddCar from "../pages/admin/AddCar";
-import Home from "../pages/admin/Home";
+import AdminHome from "../pages/admin/AdminHome";
+import Home from "../pages/admin/AdminHome";
+import BookingManage from "../pages/admin/BookingManage";
+import DeleteCar from "../pages/admin/DeleteCar";
+import UpdateCar from "../pages/admin/UpdateCar";
+import UpdateProfile from "../pages/UpdateProfile";
 
 export const adminRoutes = [
   {
-    name: "add",
-    path: "cars/add",
-    element: <AddCar />,
-  },
-  {
-    name: "Profile Management",
+    name: "Dashboard",
     path: "dashboard",
-    element: <Home />,
+    element: <AdminHome />,
   },
   {
     name: "Update Profile",
     path: "update-profile",
-    element: <Home />,
+    element: <UpdateProfile />,
   },
   {
-    name: "Bike Management",
+    name: "Car Management",
     children: [
       {
-        name: "Bike Listing",
-        path: "bike-listing",
-        element: <Home />,
+        name: "Add Car",
+        path: "add-car",
+        element: <AddCar />,
       },
-      // {
-      //   name: "Bike Detail",
-      //   path: "bike-detail",
-      //   element: "Bike Detail",
-      // },
       {
-        // name: "Update Bike", //need to update this
-        path: "view-bike/:bikeId",
-        element: <Home />,
+        name: "Update Car",
+        path: "update-car",
+        element: <UpdateCar />,
+      },
+      {
+        name: "Delete Car",
+        path: "delete-car",
+        element: <DeleteCar />,
       },
     ],
   },
   {
-    name: "Rental Management",
-    children: [
-      {
-        name: "Booking",
-        path: "bike-booking",
-        element: <Home />,
-      },
-      {
-        name: "My Rentals",
-        path: "my-rentals",
-        element: <Home />,
-      },
-    ],
+    name: "Booking",
+    path: "booking",
+    element: <BookingManage />,
   },
 ];

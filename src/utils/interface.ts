@@ -15,6 +15,7 @@ export interface ICar {
 export interface IUserInfo {
   name: string;
   email: string;
+  role?: string;
   token?: string;
 }
 export interface ICarResponse {

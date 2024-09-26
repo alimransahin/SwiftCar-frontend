@@ -1,66 +1,47 @@
-import CarCard from "../components/CarCard";
-import CarDetail from "../components/CarDetail";
-import Dashboard from "../components/layouts/DashboardLayout";
 import Car from "../pages/Car";
-import Home from "../pages/user/Home";
+import UpdateProfile from "../pages/UpdateProfile";
+import BookCar from "../pages/user/BookCAr";
+import CarDetail from "../pages/user/CarDetail";
+import GetAllCar from "../pages/user/GetAllCar";
 import MyBookings from "../pages/user/MyBookings";
+
+import UserHome from "../pages/user/UserHome";
 
 export const userRoutes = [
   {
     name: "Profile Managemente",
     path: "dashboard",
-    element: <Home />,
+    element: <UserHome />,
   },
   {
     name: "Update Profile",
     path: "update-profile",
-    element: <Car />,
+    element: <UpdateProfile />,
   },
   {
-    name: "Bike Management",
+    name: "Booking Management",
     children: [
       {
-        name: "Create Bikes",
-        path: "create-bikes",
-        element: <Car />,
+        name: "All Cars",
+        path: "all-car",
+        element: <GetAllCar />,
       },
       {
-        name: "View Bikes",
-        path: "view-bikes",
-        element: <Car />,
+        // name: "View Bikes",
+        path: "cars:/",
+        element: <CarDetail />,
       },
       {
-        // name: "Update Bike", //need to update this
-        path: "update-bike/:bikeId",
-        element: <Car />,
-      },
-      {
-        // name: "Update Bike", //need to update this
-        path: "view-bike/:bikeId",
-        element: <Car />,
+        // name: "View Bikes",
+        path: "book-car:/id",
+        element: <BookCar />,
       },
     ],
   },
 
   {
-    name: "Users Management",
-    children: [
-      {
-        name: "All Users",
-        path: "all-users",
-        element: <Car />,
-      },
-    ],
-  },
-
-  {
-    name: "Bike Rent",
-    children: [
-      {
-        name: "Returned",
-        path: "returned-bike",
-        element: <Car />,
-      },
-    ],
+    name: "My Bookings",
+    path: "all-bookings",
+    element: <MyBookings />,
   },
 ];
