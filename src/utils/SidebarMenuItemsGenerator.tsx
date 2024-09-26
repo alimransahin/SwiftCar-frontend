@@ -32,5 +32,6 @@ export const SidebarMenuItemsGenerator = (items: IUserPath[], role: string) => {
 
     return acc;
   }, [] as ISidebarItem[]);
+
+  return sidebarItems;
 };
-export default SidebarMenuItemsGenerator;

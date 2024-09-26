@@ -5,6 +5,7 @@ import { frontendRoutes } from "./frontend.routes";
 import NotFound from "../pages/errorPage/NotFound";
 import { adminRoutes } from "./admin.routes";
 import { userRoutes } from "./user.routes";
+import { routeGenerator } from "../utils/RoutesGenerator";
 
 export const router = createBrowserRouter([
   {
@@ -15,12 +16,12 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <DashboardLayout />,
-    children: adminRoutes,
+    children: routeGenerator(adminRoutes),
   },
   {
     path: "/user",
     element: <DashboardLayout />,
-    children: userRoutes,
+    children: routeGenerator(userRoutes),
   },
   {
     path: "*",

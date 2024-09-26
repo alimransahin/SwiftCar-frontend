@@ -3,22 +3,19 @@ import Home from "../pages/admin/Home";
 
 export const adminRoutes = [
   {
-    index: true,
-    element: <Home />,
-  },
-  {
+    name: "add",
     path: "cars/add",
     element: <AddCar />,
   },
   {
     name: "Profile Management",
     path: "dashboard",
-    element: <UserDashboard />,
+    element: <Home />,
   },
   {
     name: "Update Profile",
     path: "update-profile",
-    element: <UpdateProfile />,
+    element: <Home />,
   },
   {
     name: "Bike Management",
@@ -26,7 +23,7 @@ export const adminRoutes = [
       {
         name: "Bike Listing",
         path: "bike-listing",
-        element: <BikeListing />,
+        element: <Home />,
       },
       // {
       //   name: "Bike Detail",
@@ -36,7 +33,7 @@ export const adminRoutes = [
       {
         // name: "Update Bike", //need to update this
         path: "view-bike/:bikeId",
-        element: <ViewBike />,
+        element: <Home />,
       },
     ],
   },
@@ -46,12 +43,12 @@ export const adminRoutes = [
       {
         name: "Booking",
         path: "bike-booking",
-        element: <BookingPage />,
+        element: <Home />,
       },
       {
         name: "My Rentals",
         path: "my-rentals",
-        element: <MyRentList />,
+        element: <Home />,
       },
     ],
   },
