@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../App";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import { frontendRoutes } from "./frontend.routes";
@@ -16,12 +16,24 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <DashboardLayout />,
-    children: routeGenerator(adminRoutes),
+    children: [
+      {
+        path: "",
+        element: <Navigate to="dashboard" />, // Redirect root "/" to "/user" or "/dashboard"
+      },
+      ...routeGenerator(adminRoutes),
+    ],
   },
   {
     path: "/user",
     element: <DashboardLayout />,
-    children: routeGenerator(userRoutes),
+    children: [
+      {
+        path: "",
+        element: <Navigate to="dashboard" />, // Redirect root "/" to "/user" or "/dashboard"
+      },
+      ...routeGenerator(userRoutes),
+    ],
   },
   {
     path: "*",
