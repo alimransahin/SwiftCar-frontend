@@ -18,8 +18,6 @@ const CarDetail = () => {
     isLoading: boolean;
   };
   const car = getCar?.data;
-  console.log(car);
-
 
   if (isLoading) {
     return <LoadingSpinner />;

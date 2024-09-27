@@ -6,6 +6,7 @@ import NotFound from "../pages/errorPage/NotFound";
 import { adminRoutes } from "./admin.routes";
 import { userRoutes } from "./user.routes";
 import { routeGenerator } from "../utils/RoutesGenerator";
+import PrivateRoute from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute roleRequired="admin">
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "",
@@ -26,7 +31,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute roleRequired="user">
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "",

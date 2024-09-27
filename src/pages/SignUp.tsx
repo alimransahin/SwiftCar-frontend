@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSignupMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../utils/AuthContext";
 
 interface SignupFormValues {
   name: string;
@@ -28,7 +29,11 @@ const Signup = () => {
   } = useForm<SignupFormValues>();
 
   const [signup, { isLoading }] = useSignupMutation();
-
+  const authContext = useContext(AuthContext);
+  const token = localStorage.getItem("accessToken");
+  if (token && authContext?.user) {
+    return <Navigate to={`/${authContext.user.role}`} />;
+  }
   const onSubmit = async (data: SignupFormValues) => {
     const password = watch("password");
     const copassword = watch("cpassword");

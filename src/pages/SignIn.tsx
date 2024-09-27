@@ -1,6 +1,6 @@
 import { useSigninMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 import { useContext } from "react";
@@ -16,7 +16,13 @@ const SignIn = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<FieldValues>();
+  const authContext = useContext(AuthContext);
+  const token = localStorage.getItem("accessToken");
 
+  // If the user is logged in, redirect to home page
+  if (token && authContext?.user) {
+    return <Navigate to={`/${authContext.user.role}`} />;
+  }
   const onSubmit = async (data: FieldValues) => {
     try {
       const response: any = await signin(data).unwrap();
