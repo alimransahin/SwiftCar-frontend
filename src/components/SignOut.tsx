@@ -9,15 +9,23 @@ const SignOut: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext<any>(AuthContext);
 
-  const onClick: MenuProps["onClick"] = () => {
-    logout();
-    navigate("/");
+  const onClick: MenuProps["onClick"] = ({ key }) => {
+    if (key === "1") {
+      logout();
+      navigate("/");
+    } else if (key === "2") {
+      navigate(`/${user.role}`); // Navigate to dashboard
+    }
   };
 
   const items: MenuProps["items"] = [
     {
       label: "Log Out",
       key: "1",
+    },
+    {
+      label: "Dashboard",
+      key: "2",
     },
   ];
 

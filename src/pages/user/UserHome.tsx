@@ -85,7 +85,7 @@ const UserHome = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {recommended.map((car: ICar) => (
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div key={car._id} className="bg-white p-6 rounded-lg shadow-lg">
               <img
                 src={car?.img}
                 alt={car.name}

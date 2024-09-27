@@ -10,6 +10,7 @@ interface IAuthContext {
   user: any;
   login: (userData: IUser) => void;
   logout: () => void;
+  update: (name: string) => void;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);
@@ -33,6 +34,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(userData));
   };
 
+  const update = (name: string) => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      userData.name = name;
+      localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userData);
+    } else {
+      console.error("No user found in local storage");
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -40,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, update }}>
       {children}
     </AuthContext.Provider>
   );

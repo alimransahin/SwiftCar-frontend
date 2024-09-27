@@ -4,12 +4,14 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../utils/AuthContext";
 import {
   useGetUserByEmailQuery,
-  useUpdateProfileMutation,
+  useUpdateUserProfileMutation,
 } from "../redux/api/authApi";
-import { IUser } from "../utils/interface";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
-  const { user } = useContext<any>(AuthContext); // Get user from AuthContext
+  const { update, user } = useContext<any>(AuthContext);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -17,16 +19,16 @@ const UpdateProfile = () => {
     formState: { isSubmitting },
   } = useForm<FieldValues>();
 
-  const [updateUserProfile] = useUpdateProfileMutation();
-  const { data: userData } = useGetUserByEmailQuery(user?.email) as {
-    data: IUser;
+  const [updateUserProfile] = useUpdateUserProfileMutation();
+  const { data: userInfo } = useGetUserByEmailQuery(user?.email) as {
+    data: any;
   };
 
-  // Pre-fill form when userData is fetched
+  const userData = userInfo?.data;
+
   useEffect(() => {
     if (userData) {
       setValue("name", userData.name);
-      setValue("email", userData.email);
       setValue("phone", userData.phone);
       setValue("address", userData.address);
     }
@@ -34,16 +36,17 @@ const UpdateProfile = () => {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      await updateUserProfile(data).unwrap();
-
+      await updateUserProfile({ id: userData._id, userInfo: data }).unwrap();
+      update(data.name);
       toast.success("Profile updated successfully!");
+      navigate(`/${user.role}`);
     } catch (err: any) {
       toast.error(err?.data?.message || "Error updating profile.");
     }
   };
 
   return (
-    <div className=" text-blue-900 text-center flex items-center justify-center py-16">
+    <div className="text-blue-900 text-center flex items-center justify-center py-16">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-yellow-50 p-6 rounded-lg shadow-lg w-full max-w-md my-16 text-start"
@@ -58,17 +61,6 @@ const UpdateProfile = () => {
             {...register("name")}
             className="w-full p-2 border border-gray-300 rounded"
             required
-          />
-        </div>
-
-        {/* Email (read-only) */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold mb-2">Email</label>
-          <input
-            type="email"
-            {...register("email")}
-            className="w-full p-2 border border-gray-300 rounded"
-            readOnly
           />
         </div>
 
