@@ -20,7 +20,18 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    // Update user
+    updateProfile: builder.mutation({
+      query: (userInfo: Partial<IUser>) => ({
+        url: "/auth/update-profile", // Replace with your actual API endpoint
+        method: "PUT",
+        body: userInfo,
+      }),
+    }),
 
+    getUserByEmail: builder.query({
+      query: (email: any) => `users/email/${email}`,
+    }),
     // Forgot password mutation
     forgotPassword: builder.mutation({
       query: (email: { email: string }) => ({
@@ -36,6 +47,8 @@ export const {
   useSignupMutation,
   useSigninMutation,
   useForgotPasswordMutation,
+  useUpdateProfileMutation,
+  useGetUserByEmailQuery,
 } = authApi;
 
 export default authApi;
