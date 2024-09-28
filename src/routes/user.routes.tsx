@@ -7,7 +7,7 @@ import UserHome from "../pages/user/UserHome";
 
 export const userRoutes = [
   {
-    name: "Profile Managemente",
+    name: "Dashboard",
     path: "dashboard",
     element: <UserHome />,
   },

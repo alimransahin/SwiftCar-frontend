@@ -19,7 +19,7 @@ const UpComingRental = () => {
 
   // Filter confirmed bookings
   const userBookings = userRes.data.filter(
-    (booking) => booking.status === "approved"
+    (booking) => booking.status === "Approved"
   );
 
   // Initialize topBookings as an empty array
@@ -64,8 +64,8 @@ const UpComingRental = () => {
           </h3>
         </div>
       ) : (
-        <>
-          <div className="mt-12 bg-gray-50 p-6 rounded-lg shadow-lg">
+        <div className="rounded-lg shadow-lg">
+          <div className="mt-12 bg-gray-50 p-6 ">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Your Upcoming Rentals
             </h3>
@@ -96,7 +96,7 @@ const UpComingRental = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {topBookings.length > 0 ? (
+                  {topBookings.length > 0 &&
                     topBookings.map((booking: any) => (
                       <tr key={booking._id}>
                         <td className="py-2 px-4 border-t">
@@ -122,22 +122,12 @@ const UpComingRental = () => {
                           {booking.dropOffTime}
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan={6}
-                        className="py-2 px-4 text-center border-t"
-                      >
-                        No upcoming rentals available.
-                      </td>
-                    </tr>
-                  )}
+                    ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

@@ -1,8 +1,14 @@
+import { useGetAllBookingsQuery } from "../../redux/api/bookApi";
 import { useGetFilteredCarQuery } from "../../redux/api/carApi";
 import { ICarsResponse } from "../../utils/interface";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const AdminHome = () => {
+  const { data: bookings = {} as ICarsResponse } = useGetAllBookingsQuery(
+    {}
+  ) as {
+    data: ICarsResponse;
+  };
   const {
     data: carsRes = {} as ICarsResponse,
     error,
@@ -16,12 +22,16 @@ const AdminHome = () => {
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
-
+  console.log(bookings);
   const totalCars = carsRes.data?.length || 0;
   const availableCars =
     carsRes.data?.filter((car) => car.status === "available").length || 0;
   const rentedCars =
-    carsRes.data?.filter((car) => car.status === "unavailable").length || 0;
+    bookings.data?.filter((booking) => booking.status === "Approved").length ||
+    0;
+  const pendingBooking =
+    bookings.data?.filter((booking) => booking.status === "Pending").length ||
+    0;
 
   return (
     <div className="p-8 bg-white h-full">
@@ -38,8 +48,10 @@ const AdminHome = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-gradient-to-br from-red-100 to-red-200 p-6 rounded-lg shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-800">Total Cars</h3>
-          <p className="text-4xl font-bold text-red-600">{totalCars}</p>
+          <h3 className="text-lg font-semibold text-gray-800">
+            Pending Bookings
+          </h3>
+          <p className="text-4xl font-bold text-red-600">{pendingBooking}</p>
         </div>
 
         <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg shadow-lg">

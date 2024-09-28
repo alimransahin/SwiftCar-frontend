@@ -1,28 +1,35 @@
 import { useContext } from "react";
 import { AuthContext } from "../../utils/AuthContext";
-import { ICar, ICarsResponse } from "../../utils/interface";
-import { useGetFilteredCarQuery } from "../../redux/api/carApi";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import LinkButton from "../../utils/Button";
 import UpComingRental from "./UpcomingRental";
+import { ICarsResponse } from "../../utils/interface";
+import { useGetUserBookingsQuery } from "../../redux/api/bookApi";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const UserHome = () => {
   const { user } = useContext<any>(AuthContext);
   const {
-    data: carsRes = {} as ICarsResponse,
+    data: userRes = {} as ICarsResponse,
     error,
     isLoading,
-  } = useGetFilteredCarQuery({}) as {
+  } = useGetUserBookingsQuery({}) as {
     data: ICarsResponse;
     error: any;
     isLoading: boolean;
-  };
+  }; // Fetch user bookings based on user ID
 
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
-  const allCar = carsRes.data?.filter((car) => car.status === "available");
-  const recommended: any = allCar?.slice(0, 3);
+  const userBookings = userRes.data;
+  const upcomingRentals = userBookings.filter(
+    (booking) => booking.status === "Approved"
+  );
+  const pendingRentals = userBookings.filter(
+    (booking) => booking.status === "Pending"
+  );
+  const usedRentals = userBookings.filter(
+    (booking) => booking.status === "Done"
+  );
 
   return (
     <div className="p-8 bg-white h-full">
@@ -39,50 +46,36 @@ const UserHome = () => {
           <h3 className="text-lg font-semibold text-gray-800">
             Upcoming Rentals
           </h3>
-          <p className="text-4xl font-bold text-blue-600">2</p>
+          <p className="text-4xl font-bold text-blue-600">
+            {upcomingRentals.length}
+          </p>
         </div>
 
         <div className="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800">
             Pending Rentals
           </h3>
-          <p className="text-4xl font-bold text-green-600">1</p>
+          <p className="text-4xl font-bold text-green-600">
+            {pendingRentals.length}
+          </p>
         </div>
 
         <div className="bg-gradient-to-br from-violet-100 to-violet-200 p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800">Used Rentals</h3>
-          <p className="text-4xl font-bold text-green-600">1</p>
+          <p className="text-4xl font-bold text-violet-600">
+            {usedRentals.length}
+          </p>
         </div>
 
         <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800">Total Rentals</h3>
-          <p className="text-4xl font-bold text-yellow-600">15</p>
+          <p className="text-4xl font-bold text-yellow-600">
+            {userBookings.length}
+          </p>
         </div>
       </div>
 
       <UpComingRental />
-      {/* Recommended Vehicles */}
-      <div className="mt-12">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Recommended for You
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recommended.map((car: ICar) => (
-            <div key={car._id} className="bg-white p-6 rounded-lg shadow-lg">
-              <img
-                src={car?.img}
-                alt={car.name}
-                className="w-full h-40 object-cover rounded-lg mb-4"
-              />
-              <h4 className="text-lg font-semibold text-gray-700">
-                {car?.name}
-              </h4>
-              <p className="text-gray-600 mb-3">${car.pricePerHour}/Hour</p>
-              <LinkButton href="/" text="Book Now" />
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };

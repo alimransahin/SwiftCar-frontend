@@ -3,6 +3,14 @@ import { baseApi } from "./baseApi";
 
 const bookApi = baseApi.injectEndpoints({
   endpoints: (builder: any) => ({
+    // all booking
+    getAllBookings: builder.query({
+      query: () => ({
+        url: "bookings",
+        method: "GET",
+      }),
+      providesTags: ["booking"],
+    }),
     // my booking
     GetUserBookings: builder.query({
       query: () => ({
@@ -29,15 +37,6 @@ const bookApi = baseApi.injectEndpoints({
     //     method: "GET",
     //   }),
     //   providesTags: (id: string) => [{ type: "Cars", id }], // This will cache the car by its ID
-    // }),
-
-    // getCar
-    // getAllCar: builder.query({
-    //   query: () => ({
-    //     url: "/manage",
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["booking"],
     // }),
 
     //  delete car
@@ -69,4 +68,8 @@ const bookApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserBookingsQuery, useBookCarsMutation } = bookApi;
+export const {
+  useGetUserBookingsQuery,
+  useBookCarsMutation,
+  useGetAllBookingsQuery,
+} = bookApi;

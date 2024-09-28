@@ -1,13 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../../utils/AuthContext";
-
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import LinkButton from "../../utils/Button";
 import { useGetUserBookingsQuery } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
 
 const MyBookings = () => {
-  const { user } = useContext<any>(AuthContext);
   const {
     data: userRes = {} as ICarsResponse,
     error,
