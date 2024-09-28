@@ -1,7 +1,5 @@
-import Car from "../pages/Car";
 import UpdateProfile from "../pages/UpdateProfile";
-import BookCar from "../pages/user/BookCAr";
-import CarDetail from "../pages/user/CarDetail";
+import BookCar from "../pages/user/BookCar";
 import GetAllCar from "../pages/user/GetAllCar";
 import MyBookings from "../pages/user/MyBookings";
 
@@ -26,22 +24,18 @@ export const userRoutes = [
         path: "all-car",
         element: <GetAllCar />,
       },
+
       {
-        // name: "View Bikes",
-        path: "cars:/",
-        element: <CarDetail />,
-      },
-      {
-        // name: "View Bikes",
-        path: "book-car:/id",
+        // name: "View Car",
+        path: "all-car/book-car/:id",
         element: <BookCar />,
       },
-    ],
-  },
 
-  {
-    name: "My Bookings",
-    path: "all-bookings",
-    element: <MyBookings />,
+      {
+        name: "My Bookings",
+        path: "all-bookings",
+        element: <MyBookings />,
+      },
+    ],
   },
 ];

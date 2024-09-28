@@ -57,3 +57,17 @@ export interface IUserPath {
   element?: ReactNode;
   children?: IUserPath[];
 }
+export interface IBooking {
+  _id: string;
+  carId: {
+    name: string;
+    img: string;
+  };
+  status: string;
+  date: string;
+
+  pickUpDate: string;
+  pickUpTime: string;
+  dropOffDate: string;
+  dropOffTime: string;
+}

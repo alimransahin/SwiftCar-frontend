@@ -109,18 +109,22 @@ const GetAllCar = () => {
                 <td className="py-2 px-4 border-t">{car.name}</td>
                 <td className="py-2 px-4 border-t">${car.pricePerHour}/hour</td>
                 <td className="py-2 px-4 border-t">
-                  {car.status === "available" ? (
-                    <span className="text-green-600">Available</span>
-                  ) : (
-                    <span className="text-red-600">Unavailable</span>
-                  )}
+                  <span
+                    className={
+                      car.status === "available"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }
+                  >
+                    {car.status}
+                  </span>
                 </td>
                 <td className="py-2 px-4 border-t">
                   {car.status === "available" ? (
-                    <LinkButton href="/" text="Book Now" />
+                    <LinkButton href={`book-car/${car._id}`} text="Book Now" />
                   ) : (
                     <button
-                      className=" bg-gray-300 text-gray-600  cursor-not-allowed inline-block transition-colors px-6 py-3   font-bold  rounded-lg shadow-lg "
+                      className=" bg-gray-300 text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3   font-bold  rounded-lg shadow-lg "
                       disabled
                     >
                       Book Now

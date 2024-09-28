@@ -8,6 +8,7 @@ const Header = () => {
   const { user } = useContext<any>(AuthContext);
   const menu = [
     { name: "Home", link: "/" },
+    ...(user ? [{ name: "Dashboard", link: `/${user.role}` }] : []),
     { name: "About Us", link: "/about" },
     { name: "Booking", link: "/car" },
     { name: "Contact", link: "/contact" },

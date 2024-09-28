@@ -30,7 +30,7 @@ const Car = () => {
     return <LoadingSpinner />;
   }
 
-  const allCar = carsRes.data?.filter((car) => car.status === "available");
+  const allCar = carsRes.data;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);

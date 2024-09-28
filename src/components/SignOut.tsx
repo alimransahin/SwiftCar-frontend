@@ -9,28 +9,24 @@ const SignOut: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext<any>(AuthContext);
 
-  const onClick: MenuProps["onClick"] = ({ key }) => {
-    if (key === "1") {
+  const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
+    if (key === "logout") {
       logout();
       navigate("/");
-    } else if (key === "2") {
-      navigate(`/${user.role}`); // Navigate to dashboard
     }
   };
 
-  const items: MenuProps["items"] = [
+  const menuItems: MenuProps["items"] = [
     {
       label: "Log Out",
-      key: "1",
-    },
-    {
-      label: "Dashboard",
-      key: "2",
+      key: "logout",
     },
   ];
-
   return (
-    <Dropdown menu={{ items, onClick }}>
+    <Dropdown
+      className="cursor-pointer mx-2"
+      menu={{ items: menuItems, onClick: handleMenuClick }}
+    >
       <a onClick={(e) => e.preventDefault()}>
         <Space>
           <CircleUserRound />
