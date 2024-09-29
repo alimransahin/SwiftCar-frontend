@@ -50,10 +50,11 @@ const BookCar = () => {
     data.carId = car._id;
     console.log(data);
     try {
-      await bookCars(data).unwrap();
-
+      const my_book: any = await bookCars(data).unwrap();
+      console.log(my_book);
+      window.location.href = my_book.data.payment_url;
       toast.success("Booking successful!");
-      navigate("/user/all-bookings");
+      // navigate("/user/all-bookings");
     } catch (err: any) {
       toast.error(err?.data?.message);
     }
