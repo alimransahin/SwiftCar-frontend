@@ -7,7 +7,6 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     cart: cartReducer,
   },
-
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(baseApi.middleware),
 });

@@ -1,22 +1,27 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useAddNewCarMutation } from "../../redux/api/carApi"; // Assuming you have an API slice for cars
+import { useAddCarsMutation } from "../../redux/api/carApi"; // Assuming you have an API slice for cars
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
-  const [addNewCar] = useAddNewCarMutation();
+  const [addCars] = useAddCarsMutation();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { isSubmitting, isDirty, isValid, errors },
     reset,
   } = useForm<FieldValues>({ mode: "onChange" });
 
   const onSubmit = async (data: FieldValues) => {
+    console.log(data);
     try {
-      await addNewCar(data).unwrap();
+      await addCars(data).unwrap();
       toast.success("Car added successfully!");
+      navigate("/admin/cars");
       reset();
     } catch (err: any) {
       toast.error(err?.data?.message || "Failed to add car");
@@ -142,7 +147,7 @@ const AddCar = () => {
             />
             {errors.pricePerHour && (
               <span className="text-red-600 text-sm">
-                {errors.pricePerHour.message}
+                {"errors.pricePerHour.message"}
               </span>
             )}
           </div>
@@ -154,12 +159,14 @@ const AddCar = () => {
             </label>
             <input
               type="text"
-              {...register("img", { required: "Image URL is required" })}
+              {...register("image", { required: "Image URL is required" })}
               className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
             {errors.img && (
-              <span className="text-red-600 text-sm">{errors.img.message}</span>
+              <span className="text-red-600 text-sm">
+                {"errors.img.message"}
+              </span>
             )}
           </div>
 

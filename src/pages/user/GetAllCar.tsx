@@ -1,5 +1,8 @@
 import { useContext, useState } from "react";
-import { useGetFilteredCarQuery } from "../../redux/api/carApi";
+import {
+  useGetFilteredCarQuery,
+  useDeleteCarMutation,
+} from "../../redux/api/carApi";
 import LinkButton from "../../utils/Button";
 import { ICar, ICarsResponse } from "../../utils/interface";
 import LoadingSpinner from "../../utils/LoadingSpinner";
@@ -24,9 +27,13 @@ const GetAllCar = () => {
     isLoading: boolean;
   };
 
+  // Use the delete mutation hook
+  const [deleteCar] = useDeleteCarMutation();
+
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
+
   const filteredCars = carsRes.data?.filter((car) => {
     const matchesStatus = filterStatus === "all" || car.status === filterStatus;
     const matchesSearch = car.name
@@ -34,47 +41,50 @@ const GetAllCar = () => {
       .includes(searchQuery.toLowerCase());
     return matchesStatus && matchesSearch;
   });
+
   const clearFilters = () => {
     setFilterStatus("all");
     setSearchQuery("");
   };
+
+  // Handle car deletion
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteCar(id).unwrap();
+      // Optionally show a success message or handle post-deletion logic
+    } catch (error) {
+      console.error("Failed to delete the car: ", error);
+    }
+  };
+
   return (
     <div className="p-8 bg-white h-full">
       <h3 className="text-2xl font-semibold text-gray-800 mb-4">Car List</h3>
-
-      {/* Search Input and Sort/Filter Select Input */}
       <div className="flex justify-between">
         <div className="flex justify-center items-center mb-4 space-x-4">
-          <div className="flex items-center space-x-2">
-            <select
-              value={filterStatus}
-              onChange={(e) =>
-                setFilterStatus(
-                  e.target.value as "all" | "available" | "unavailable"
-                )
-              }
-              className="px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-2 focus:border-primary"
-            >
-              <option value="all">Show All</option>
-              <option value="available">Available</option>
-              <option value="unavailable">Unavailable</option>
-            </select>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by car name"
-              className="px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-2 focus:border-primary"
-            />
-          </div>
-
-          {/* Clear Filter Button */}
+          <select
+            value={filterStatus}
+            onChange={(e) =>
+              setFilterStatus(
+                e.target.value as "all" | "available" | "unavailable"
+              )
+            }
+            className="px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-2 focus:border-primary"
+          >
+            <option value="all">Show All</option>
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by car name"
+            className="px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-2 focus:border-primary"
+          />
           <button
             onClick={clearFilters}
-            className="px-4 py-2 border-2 border-gray-300  text-gray-600 rounded-md hover:text-black   hover:border-primary"
+            className="px-4 py-2 border-2 border-gray-300 text-gray-600 rounded-md hover:text-black hover:border-primary"
           >
             Clear Filters
           </button>
@@ -82,13 +92,12 @@ const GetAllCar = () => {
         {user?.role === "admin" && (
           <Link
             to="/admin/add-car"
-            className="bg-green-600 px-6 py-3 mb-4 text-white rounded-md  font-semibold hover:bg-green-700 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-green-600 px-6 py-3 mb-4 text-white rounded-md font-semibold hover:bg-green-700 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
           >
             Add New Car
           </Link>
         )}
       </div>
-      {/* Car List Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -139,7 +148,10 @@ const GetAllCar = () => {
                       <button className="bg-blue-600 text-white mx-2 p-2 rounded-lg">
                         <Edit />
                       </button>
-                      <button className="bg-red-600 text-white mx-2 p-2 rounded-lg">
+                      <button
+                        onClick={() => handleDelete(car._id)}
+                        className="bg-red-600 text-white mx-2 p-2 rounded-lg"
+                      >
                         <Trash />
                       </button>
                     </>
@@ -147,7 +159,7 @@ const GetAllCar = () => {
                     <LinkButton href={`book-car/${car._id}`} text="Book Now" />
                   ) : (
                     <button
-                      className=" bg-gray-300 text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3   font-bold  rounded-lg shadow-lg "
+                      className="bg-gray-300 text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg"
                       disabled
                     >
                       Book Now

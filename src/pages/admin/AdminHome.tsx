@@ -24,8 +24,8 @@ const AdminHome = () => {
   }
   console.log(bookings);
   const totalCars = carsRes.data?.length || 0;
-  const availableCars =
-    carsRes.data?.filter((car) => car.status === "available").length || 0;
+  // const availableCars =
+  //   carsRes.data?.filter((car) => car.status === "available").length || 0;
   const rentedCars =
     bookings.data?.filter((booking) => booking.status === "Approved").length ||
     0;
@@ -58,7 +58,7 @@ const AdminHome = () => {
           <h3 className="text-lg font-semibold text-gray-800">
             Available Cars
           </h3>
-          <p className="text-4xl font-bold text-blue-600">{availableCars}</p>
+          <p className="text-4xl font-bold text-blue-600">{totalCars}</p>
         </div>
 
         <div className="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-lg shadow-lg">

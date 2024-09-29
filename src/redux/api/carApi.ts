@@ -9,7 +9,7 @@ const carApi = baseApi.injectEndpoints({
         url: "/cars",
         method: "GET",
       }),
-      providesTags: ["Car"],
+      providesTags: ["car"],
     }),
 
     // getSingleCar
@@ -18,37 +18,29 @@ const carApi = baseApi.injectEndpoints({
         url: `/cars/${id}`,
         method: "GET",
       }),
-      providesTags: (id: string) => [{ type: "Cars", id }], // This will cache the car by its ID
-    }),
-
-    // getCar
-    getAllCar: builder.query({
-      query: () => ({
-        url: "/manage",
-        method: "GET",
-      }),
-      providesTags: ["Cars"],
+      // invalidatesTags: (id: string) => [{ type: "Cars", id }], // This will cache the car by its ID
+      providesTags: ["car"],
     }),
 
     //  delete car
     deleteCar: builder.mutation({
       query: (id: string) => ({
-        url: `/manage/${id}`,
+        url: `/cars/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Cars"], // This will invalidate the cache for cars
+      invalidatesTags: ["car"],
     }),
 
     // add car
     addCars: builder.mutation({
       query: (data: ICar) => {
         return {
-          url: "/manage",
+          url: "/cars",
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["Cars"],
+      invalidatesTags: ["car"],
     }),
     // Edit car
     editCars: builder.mutation({
@@ -65,7 +57,7 @@ const carApi = baseApi.injectEndpoints({
           body: updatedCar,
         };
       },
-      invalidatesTags: ["Cars"],
+      invalidatesTags: ["car"],
     }),
   }),
 });
@@ -73,7 +65,6 @@ const carApi = baseApi.injectEndpoints({
 export const {
   useGetFilteredCarQuery,
   useGetSingleCarQuery,
-  useGetAllCarQuery,
   useDeleteCarMutation,
   useAddCarsMutation,
   useEditCarsMutation,
