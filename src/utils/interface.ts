@@ -30,6 +30,12 @@ export interface ICarsResponse {
   message: string;
   data: ICar[];
 }
+export interface IUsersResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: IUser[];
+}
 export interface IUser {
   name: string;
   email: string;

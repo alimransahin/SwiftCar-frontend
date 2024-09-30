@@ -1,5 +1,5 @@
 import { useForm, FieldValues, FieldError } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetSingleCarQuery } from "../../redux/api/carApi";
 import { ICarResponse } from "../../utils/interface";
@@ -11,7 +11,6 @@ import { useBookCarsMutation } from "../../redux/api/bookApi";
 const BookCar = () => {
   const { id } = useParams<{ id: string }>();
   const [bookCars] = useBookCarsMutation();
-  const navigate = useNavigate();
   const {
     data: getCar,
     error,

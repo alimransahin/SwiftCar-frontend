@@ -42,7 +42,6 @@ const CarDetail = () => {
           />
         </div>
 
-        {/* Product Information Section */}
         <div className="w-full md:w-1/2 text-start">
           <h1 className="text-4xl font-extrabold text-[#000428] mb-4">
             {car.name}

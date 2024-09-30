@@ -2,6 +2,7 @@ import AddCar from "../pages/admin/AddCar";
 import AdminHome from "../pages/admin/AdminHome";
 import BookingManage from "../pages/admin/BookingManage";
 import DeleteCar from "../pages/admin/DeleteCar";
+import ManageUser from "../pages/admin/ManageUser";
 import UpdateCar from "../pages/admin/UpdateCar";
 import UpdateProfile from "../pages/UpdateProfile";
 import GetAllCar from "../pages/user/GetAllCar";
@@ -45,5 +46,10 @@ export const adminRoutes = [
     name: "Booking",
     path: "booking",
     element: <BookingManage />,
+  },
+  {
+    name: "User",
+    path: "user",
+    element: <ManageUser />,
   },
 ];
