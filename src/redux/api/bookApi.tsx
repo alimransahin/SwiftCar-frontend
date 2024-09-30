@@ -30,41 +30,23 @@ const bookApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["booking"],
     }),
-    // getSingleCar
-    // getSingleCar: builder.query({
-    //   query: (id: string) => ({
-    //     url: `/cars/${id}`,
-    //     method: "GET",
-    //   }),
-    //   providesTags: (id: string) => [{ type: "Cars", id }], // This will cache the car by its ID
-    // }),
 
-    //  delete car
-    // deleteCar: builder.mutation({
-    //   query: (id: string) => ({
-    //     url: `/manage/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["booking"], // This will invalidate the cache for cars
-    // }),
-
-    // Edit car
-    // editCars: builder.mutation({
-    //   query: ({
-    //     id,
-    //     updatedCar,
-    //   }: {
-    //     id: string;
-    //     updatedCar: Partial<ICar>;
-    //   }) => {
-    //     return {
-    //       url: `/manage/${id}`,
-    //       method: "PUT",
-    //       body: updatedCar,
-    //     };
-    //   },
-    //   invalidatesTags: ["booking"],
-    // }),
+    makePayment: builder.mutation({
+      query: ({
+        id,
+        currentPageLink,
+      }: {
+        id: string;
+        currentPageLink: string;
+      }) => ({
+        url: `/bookings/${id}`,
+        method: "POST",
+        body: {
+          currentPageLink,
+        },
+      }),
+      invalidatesTags: ["booking"],
+    }),
   }),
 });
 
@@ -72,4 +54,5 @@ export const {
   useGetUserBookingsQuery,
   useBookCarsMutation,
   useGetAllBookingsQuery,
+  useMakePaymentMutation,
 } = bookApi;

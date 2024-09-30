@@ -1,8 +1,17 @@
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import { useGetUserBookingsQuery } from "../../redux/api/bookApi";
+import {
+  useGetUserBookingsQuery,
+  useMakePaymentMutation,
+} from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import { Loader } from "lucide-react";
 
 const MyBookings = () => {
+  const [loading, setLoading] = useState<string | null>(null);
+  const [makePayment] = useMakePaymentMutation();
+
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -12,6 +21,23 @@ const MyBookings = () => {
     error: any;
     isLoading: boolean;
   }; // Fetch user bookings based on user ID
+
+  const handlePayment = async (id: string) => {
+    try {
+      setLoading(id);
+      const currentPageLink = window.location.href;
+      const res: any = await makePayment({ id, currentPageLink }).unwrap();
+      const payment_data = res.data;
+      if (payment_data.errors) {
+        toast.error(payment_data.errors[0]);
+      }
+      window.location.href = payment_data.payment_url;
+    } catch (error) {
+      console.error("Failed to make Payment: ", error);
+    } finally {
+      setLoading(null); // Reset loading state once the process is done
+    }
+  };
 
   if (isLoading || error) {
     return <LoadingSpinner />;
@@ -47,7 +73,7 @@ const MyBookings = () => {
                 Drop off Time
               </th>
               <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
-                Status
+                Booking Status
               </th>
               <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
                 Action
@@ -97,15 +123,28 @@ const MyBookings = () => {
                       </button>
                     ) : booking?.status === "Done" &&
                       booking.isPaid === true ? (
-                      <button className="text-white bg-accent w-full  hover:bg-amber-500 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
-                        Pay Now
-                      </button>
-                    ) : (
                       <button
                         className="bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg"
                         disabled
                       >
                         Paid
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handlePayment(booking._id)}
+                        className={`text-white bg-accent w-full hover:bg-amber-500 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ${
+                          loading === booking._id &&
+                          "opacity-50 cursor-not-allowed"
+                        }`}
+                        disabled={loading === booking._id}
+                      >
+                        {loading === booking._id ? (
+                          <div className="text-center">
+                            <Loader />
+                          </div>
+                        ) : (
+                          "Pay Now"
+                        )}
                       </button>
                     )}
                   </td>
