@@ -2,8 +2,6 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 import { useGetAllBookingsQuery } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
 
-import { Loader } from "lucide-react";
-
 const BookingManage = () => {
   const {
     data: userRes = {} as ICarsResponse,
@@ -22,6 +20,25 @@ const BookingManage = () => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
+  };
+  const handleApprove = async (id: string, status: string) => {
+    const confirmed = window.confirm(
+      status === "approve"
+        ? "Are you sure you want to approve this book?"
+        : "Are you sure you want to cancel this book?"
+    );
+
+    if (confirmed) {
+      try {
+        await deleteCar(id).unwrap();
+        // Optionally show a success message or handle post-deletion logic
+        console.log("Car deleted successfully.");
+      } catch (error) {
+        console.error("Failed to delete the car: ", error);
+      }
+    } else {
+      console.log("Car deletion canceled.");
+    }
   };
   return (
     <div className="p-8 bg-white h-full">
@@ -83,10 +100,16 @@ const BookingManage = () => {
                   <td className="py-2 px-4 border-t">
                     {booking?.status === "Pending" ? (
                       <div className="flex space-x-4">
-                        <button className="text-white w-full bg-green-600  hover:bg-green-700 inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg">
+                        <button
+                          onClick={() => handleApprove(booking._id, "approve")}
+                          className="text-white w-full bg-green-600  hover:bg-green-700 inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg"
+                        >
                           Approve
                         </button>
-                        <button className="text-white w-full  bg-rose-600  hover:bg-rose-700  inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg">
+                        <button
+                          onClick={() => handleApprove(booking._id, "cancle")}
+                          className="text-white w-full  bg-rose-600  hover:bg-rose-700  inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg"
+                        >
                           Cancel
                         </button>
                       </div>

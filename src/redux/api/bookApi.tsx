@@ -1,4 +1,3 @@
-import { ICar } from "../../utils/interface";
 import { baseApi } from "./baseApi";
 
 const bookApi = baseApi.injectEndpoints({
@@ -47,6 +46,16 @@ const bookApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["booking"],
     }),
+    approve: builder.mutation({
+      query: ({ id, data }: { id: string; data: string }) => {
+        return {
+          url: `/bookings/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: ["booking"],
+    }),
   }),
 });
 
@@ -55,4 +64,5 @@ export const {
   useBookCarsMutation,
   useGetAllBookingsQuery,
   useMakePaymentMutation,
+  useApproveMutation,
 } = bookApi;
