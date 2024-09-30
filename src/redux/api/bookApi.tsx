@@ -57,6 +57,17 @@ const bookApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["booking"],
     }),
+    isReturn: builder.mutation({
+      query: (id: string) => {
+        console.log("Updating Car:", { id });
+        return {
+          url: `/cars/return`,
+          method: "PUT",
+          body: { id },
+        };
+      },
+      invalidatesTags: ["booking"],
+    }),
   }),
 });
 
@@ -66,4 +77,5 @@ export const {
   useGetAllBookingsQuery,
   useMakePaymentMutation,
   useApproveMutation,
+  useIsReturnMutation,
 } = bookApi;

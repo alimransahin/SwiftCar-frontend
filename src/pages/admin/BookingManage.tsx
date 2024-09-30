@@ -2,12 +2,13 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 import {
   useApproveMutation,
   useGetAllBookingsQuery,
+  useIsReturnMutation,
 } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
-import { toast } from "react-toastify";
 
 const BookingManage = () => {
   const [approve] = useApproveMutation();
+  const [isReturn] = useIsReturnMutation();
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -40,6 +41,19 @@ const BookingManage = () => {
         console.log("Car deleted successfully.");
       } catch (error) {
         console.error("Failed to delete the car: ", error);
+      }
+    } else {
+      console.log("Car deletion canceled.");
+    }
+  };
+  const handleReturn = async (id: string) => {
+    const confirmed = window.confirm("Are you sure want return this car?");
+
+    if (confirmed) {
+      try {
+        await isReturn(id).unwrap();
+      } catch (error) {
+        console.error("Failed to return the car: ", error);
       }
     } else {
       console.log("Car deletion canceled.");
@@ -118,9 +132,24 @@ const BookingManage = () => {
                           Cancel
                         </button>
                       </div>
+                    ) : booking?.status === "Cancled" ? (
+                      <button className=" text-black w-full bg-rose-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
+                        Cancled
+                      </button>
+                    ) : booking?.isReturn !== true ? (
+                      <button
+                        onClick={() => handleReturn(booking._id)}
+                        className=" text-black w-full bg-primary  inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg "
+                      >
+                        Return
+                      </button>
+                    ) : booking?.isPaid !== true ? (
+                      <button className=" text-black w-full bg-green-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
+                        Unpaid
+                      </button>
                     ) : (
                       <button className=" text-black w-full bg-green-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
-                        Approved
+                        Paid
                       </button>
                     )}
                   </td>
