@@ -49,11 +49,20 @@ const GetAllCar = () => {
 
   // Handle car deletion
   const handleDelete = async (id: string) => {
-    try {
-      await deleteCar(id).unwrap();
-      // Optionally show a success message or handle post-deletion logic
-    } catch (error) {
-      console.error("Failed to delete the car: ", error);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this car?"
+    );
+
+    if (confirmed) {
+      try {
+        await deleteCar(id).unwrap();
+        // Optionally show a success message or handle post-deletion logic
+        console.log("Car deleted successfully.");
+      } catch (error) {
+        console.error("Failed to delete the car: ", error);
+      }
+    } else {
+      console.log("Car deletion canceled.");
     }
   };
 
@@ -144,17 +153,20 @@ const GetAllCar = () => {
                 </td>
                 <td className="py-2 px-4 border-t">
                   {user?.role === "admin" ? (
-                    <>
-                      <button className="bg-blue-600 text-white mx-2 p-2 rounded-lg">
+                    <div className="flex">
+                      <Link
+                        to={`/admin/update-car/${car._id}`}
+                        className="bg-blue-600 text-white mx-2 p-2 rounded-lg  my-auto"
+                      >
                         <Edit />
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(car._id)}
-                        className="bg-red-600 text-white mx-2 p-2 rounded-lg"
+                        className="bg-red-600 text-white mx-2 p-2 rounded-lg  "
                       >
                         <Trash />
                       </button>
-                    </>
+                    </div>
                   ) : car.status === "available" ? (
                     <LinkButton href={`book-car/${car._id}`} text="Book Now" />
                   ) : (

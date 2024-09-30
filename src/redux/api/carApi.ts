@@ -43,7 +43,7 @@ const carApi = baseApi.injectEndpoints({
       invalidatesTags: ["car"],
     }),
     // Edit car
-    editCars: builder.mutation({
+    updateCar: builder.mutation({
       query: ({
         id,
         updatedCar,
@@ -52,7 +52,7 @@ const carApi = baseApi.injectEndpoints({
         updatedCar: Partial<ICar>;
       }) => {
         return {
-          url: `/manage/${id}`,
+          url: `/cars/${id}`,
           method: "PUT",
           body: updatedCar,
         };
@@ -67,5 +67,5 @@ export const {
   useGetSingleCarQuery,
   useDeleteCarMutation,
   useAddCarsMutation,
-  useEditCarsMutation,
+  useUpdateCarMutation,
 } = carApi;

@@ -32,8 +32,8 @@ export const adminRoutes = [
         element: <AddCar />,
       },
       {
-        name: "Update Car",
-        path: "update-car",
+        // name: "Update Car",
+        path: "update-car/:id",
         element: <UpdateCar />,
       },
       {
