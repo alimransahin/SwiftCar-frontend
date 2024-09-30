@@ -44,17 +44,12 @@ const carApi = baseApi.injectEndpoints({
     }),
     // Edit car
     updateCar: builder.mutation({
-      query: ({
-        id,
-        updatedCar,
-      }: {
-        id: string;
-        updatedCar: Partial<ICar>;
-      }) => {
+      query: ({ id, data }: { id: string; data: Partial<ICar> }) => {
+        console.log("Updating Car:", { id, data });
         return {
           url: `/cars/${id}`,
           method: "PUT",
-          body: updatedCar,
+          body: data,
         };
       },
       invalidatesTags: ["car"],

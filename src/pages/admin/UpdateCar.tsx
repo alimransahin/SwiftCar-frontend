@@ -38,9 +38,9 @@ const UpdateCar = () => {
   }, [car, setValue]);
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    // console.log(data);
     try {
-      await updateCar({ id, ...data }).unwrap();
+      await updateCar({ id, data }).unwrap();
       toast.success("Car updated successfully!");
       navigate("/admin/cars");
       reset();
