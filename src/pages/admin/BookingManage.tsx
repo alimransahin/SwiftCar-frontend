@@ -1,17 +1,10 @@
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import {
-  useGetAllBookingsQuery,
-  useMakePaymentMutation,
-} from "../../redux/api/bookApi";
+import { useGetAllBookingsQuery } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
-import { toast } from "react-toastify";
-import { useState } from "react";
+
 import { Loader } from "lucide-react";
 
 const BookingManage = () => {
-  const [loading, setLoading] = useState<string | null>(null);
-  const [makePayment] = useMakePaymentMutation();
-
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -20,23 +13,6 @@ const BookingManage = () => {
     data: ICarsResponse;
     error: any;
     isLoading: boolean;
-  };
-
-  const handlePayment = async (id: string) => {
-    try {
-      setLoading(id);
-      const currentPageLink = window.location.href;
-      const res: any = await makePayment({ id, currentPageLink }).unwrap();
-      const payment_data = res.data;
-      if (payment_data.errors) {
-        toast.error(payment_data.errors[0]);
-      }
-      window.location.href = payment_data.payment_url;
-    } catch (error) {
-      console.error("Failed to make Payment: ", error);
-    } finally {
-      setLoading(null); // Reset loading state once the process is done
-    }
   };
 
   if (isLoading || error) {
@@ -73,9 +49,6 @@ const BookingManage = () => {
                 Drop off Time
               </th>
               <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
-                Booking Status
-              </th>
-              <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
                 Action
               </th>
             </tr>
@@ -106,45 +79,20 @@ const BookingManage = () => {
                     {formatDate(booking.dropOffDate)}
                   </td>
                   <td className="py-2 px-4 border-t">{booking.dropOffTime}</td>
-                  <td className="py-2 px-4 border-t">{booking.status}</td>
 
                   <td className="py-2 px-4 border-t">
                     {booking?.status === "Pending" ? (
-                      // <LinkButton
-                      //   href={`book-car/${booking._id}`}
-                      //   text="Edit Book"
-                      // />
-                      <button className="text-white w-full bg-primary  hover:bg-blue-600 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
-                        Edit Book
-                      </button>
-                    ) : booking?.status === "Approved" ? (
-                      <button className=" bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
-                        Edit Book
-                      </button>
-                    ) : booking?.status === "Done" &&
-                      booking.isPaid === true ? (
-                      <button
-                        className="bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg"
-                        disabled
-                      >
-                        Paid
-                      </button>
+                      <div className="flex space-x-4">
+                        <button className="text-white w-full bg-green-600  hover:bg-green-700 inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg">
+                          Approve
+                        </button>
+                        <button className="text-white w-full  bg-rose-600  hover:bg-rose-700  inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg">
+                          Cancel
+                        </button>
+                      </div>
                     ) : (
-                      <button
-                        onClick={() => handlePayment(booking._id)}
-                        className={`text-white bg-accent w-full hover:bg-amber-500 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ${
-                          loading === booking._id &&
-                          "opacity-50 cursor-not-allowed"
-                        }`}
-                        disabled={loading === booking._id}
-                      >
-                        {loading === booking._id ? (
-                          <div className="text-center">
-                            <Loader />
-                          </div>
-                        ) : (
-                          "Pay Now"
-                        )}
+                      <button className=" text-black w-full bg-green-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
+                        Approved
                       </button>
                     )}
                   </td>
