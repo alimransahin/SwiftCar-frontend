@@ -47,11 +47,12 @@ const bookApi = baseApi.injectEndpoints({
       invalidatesTags: ["booking"],
     }),
     approve: builder.mutation({
-      query: ({ id, data }: { id: string; data: string }) => {
+      query: ({ id, status }: { id: string; status: string }) => {
+        console.log("Updating Car:", { id, status });
         return {
           url: `/bookings/${id}`,
           method: "PUT",
-          body: data,
+          body: { status },
         };
       },
       invalidatesTags: ["booking"],

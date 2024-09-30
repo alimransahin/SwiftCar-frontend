@@ -1,8 +1,13 @@
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import { useGetAllBookingsQuery } from "../../redux/api/bookApi";
+import {
+  useApproveMutation,
+  useGetAllBookingsQuery,
+} from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
+import { toast } from "react-toastify";
 
 const BookingManage = () => {
+  const [approve] = useApproveMutation();
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -21,6 +26,7 @@ const BookingManage = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
+
   const handleApprove = async (id: string, status: string) => {
     const confirmed = window.confirm(
       status === "approve"
@@ -30,8 +36,7 @@ const BookingManage = () => {
 
     if (confirmed) {
       try {
-        await deleteCar(id).unwrap();
-        // Optionally show a success message or handle post-deletion logic
+        await approve({ id, status }).unwrap();
         console.log("Car deleted successfully.");
       } catch (error) {
         console.error("Failed to delete the car: ", error);
