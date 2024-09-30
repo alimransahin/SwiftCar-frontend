@@ -20,7 +20,7 @@ const MyBookings = () => {
     data: ICarsResponse;
     error: any;
     isLoading: boolean;
-  }; // Fetch user bookings based on user ID
+  };
 
   const handlePayment = async (id: string) => {
     try {

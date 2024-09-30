@@ -1,6 +1,5 @@
 import AddCar from "../pages/admin/AddCar";
 import AdminHome from "../pages/admin/AdminHome";
-
 import BookingManage from "../pages/admin/BookingManage";
 import DeleteCar from "../pages/admin/DeleteCar";
 import UpdateCar from "../pages/admin/UpdateCar";
@@ -37,7 +36,6 @@ export const adminRoutes = [
         element: <UpdateCar />,
       },
       {
-        name: "Delete Car",
         path: "delete-car",
         element: <DeleteCar />,
       },
