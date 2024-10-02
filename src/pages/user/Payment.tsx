@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { Loader } from "lucide-react";
 
-const MyBookings = () => {
+const Payment = () => {
   const [loading, setLoading] = useState<string | null>(null);
   const [makePayment] = useMakePaymentMutation();
 
@@ -42,7 +42,9 @@ const MyBookings = () => {
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
-  const userBookings = userRes.data;
+  const userBookings = userRes.data.filter(
+    (book) => book.status === "Approve" || book.status === "Done"
+  );
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
@@ -67,14 +69,9 @@ const MyBookings = () => {
                 Pick-up Time
               </th>
               <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
-                Drop off Date
+                Total Cost
               </th>
-              <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
-                Drop off Time
-              </th>
-              <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
-                Booking Status
-              </th>
+
               <th className="py-2 px-4 bg-gray-200 text-gray-600 font-semibold">
                 Action
               </th>
@@ -102,20 +99,33 @@ const MyBookings = () => {
                     {formatDate(booking.pickUpDate)}
                   </td>
                   <td className="py-2 px-4 border-t">{booking.pickUpTime}</td>
-                  <td className="py-2 px-4 border-t">
-                    {formatDate(booking.dropOffDate)}
-                  </td>
-                  <td className="py-2 px-4 border-t">{booking.dropOffTime}</td>
-                  <td className="py-2 px-4 border-t">{booking.status}</td>
+
+                  <td className="py-2 px-4 border-t">{booking.totalCost}</td>
 
                   <td className="py-2 px-4 border-t">
-                    {booking?.status === "Pending" ? (
-                      <button className="text-white w-full bg-primary  hover:bg-blue-600 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
-                        Edit Book
+                    {booking.isPaid === true ? (
+                      <button
+                        className="bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg"
+                        disabled
+                      >
+                        Paid
                       </button>
                     ) : (
-                      <button className=" bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
-                        Edit Book
+                      <button
+                        onClick={() => handlePayment(booking._id)}
+                        className={`text-white bg-primary w-full hover:bg-blue-500 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ${
+                          loading === booking._id &&
+                          "opacity-50 cursor-not-allowed"
+                        }`}
+                        disabled={loading === booking._id}
+                      >
+                        {loading === booking._id ? (
+                          <div className="text-center">
+                            <Loader />
+                          </div>
+                        ) : (
+                          "Pay Now"
+                        )}
                       </button>
                     )}
                   </td>
@@ -129,4 +139,4 @@ const MyBookings = () => {
   );
 };
 
-export default MyBookings;
+export default Payment;

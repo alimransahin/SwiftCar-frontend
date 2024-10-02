@@ -2,6 +2,8 @@ import CarDetail from "../components/CarDetail";
 import AboutUs from "../pages/AboutUs";
 import Car from "../pages/Car";
 import ContactUs from "../pages/ContactUs";
+import NotFound from "../pages/errorPage/NotFound";
+import Unauthorized from "../pages/errorPage/Unauthorized";
 import BlogPage from "../pages/etc/Blog";
 import FAQ from "../pages/etc/FAQ";
 import ForgotPassword from "../pages/etc/ForgotPassword";
@@ -67,7 +69,15 @@ export const frontendRoutes = [
     element: <FAQ />,
   },
   {
+    path: "unauthorized",
+    element: <Unauthorized />,
+  },
+  {
     path: "forgot-password",
     element: <ForgotPassword />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];

@@ -4,6 +4,7 @@ import BookingManage from "../pages/admin/BookingManage";
 import DeleteCar from "../pages/admin/DeleteCar";
 import ManageUser from "../pages/admin/ManageUser";
 import UpdateCar from "../pages/admin/UpdateCar";
+import NotFound from "../pages/errorPage/NotFound";
 import UpdateProfile from "../pages/UpdateProfile";
 import GetAllCar from "../pages/user/GetAllCar";
 
@@ -51,5 +52,9 @@ export const adminRoutes = [
     name: "User",
     path: "user",
     element: <ManageUser />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];

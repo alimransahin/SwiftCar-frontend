@@ -95,7 +95,7 @@ const BookCar = () => {
             <div className="text-left">
               <strong>Features:</strong>
               <ul className="list-disc list-inside pl-4">
-                {car.features.map((feature) => (
+                {car?.features?.map((feature) => (
                   <li key={feature} className="text-gray-700">
                     {feature}
                   </li>

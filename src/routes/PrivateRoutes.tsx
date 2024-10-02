@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../utils/AuthContext";
-import { toast } from "react-toastify";
 
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -40,8 +39,8 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   // If a specific role is required and user doesn't match, show a warning and redirect
   if (roleRequired && user?.role !== roleRequired) {
-    toast.warning("You have no permission to access this page");
-    return <Navigate to="/" />;
+    // window.alert("You have no permission to access this page");
+    return <Navigate to="/unauthorized" />;
   }
 
   return <>{children}</>;

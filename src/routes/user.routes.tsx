@@ -1,7 +1,9 @@
+import NotFound from "../pages/errorPage/NotFound";
 import UpdateProfile from "../pages/UpdateProfile";
 import BookCar from "../pages/user/BookCar";
 import GetAllCar from "../pages/user/GetAllCar";
 import MyBookings from "../pages/user/MyBookings";
+import Payment from "../pages/user/Payment";
 
 import UserHome from "../pages/user/UserHome";
 
@@ -37,5 +39,14 @@ export const userRoutes = [
         element: <MyBookings />,
       },
     ],
+  },
+  {
+    name: "Payment",
+    path: "payment",
+    element: <Payment />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];

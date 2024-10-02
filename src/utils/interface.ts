@@ -7,7 +7,7 @@ export interface ICar {
   img?: string;
   color: string;
   isElectric: boolean;
-  features: string[];
+  features?: string[];
   pricePerHour: number;
   status: string;
   isDeleted?: boolean;
