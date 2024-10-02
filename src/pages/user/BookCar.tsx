@@ -1,5 +1,5 @@
 import { useForm, FieldValues, FieldError } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetSingleCarQuery } from "../../redux/api/carApi";
 import { ICarResponse } from "../../utils/interface";
@@ -9,6 +9,7 @@ import SomethingWrong from "../errorPage/SomethingWrong";
 import { useBookCarsMutation } from "../../redux/api/bookApi";
 
 const BookCar = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [bookCars] = useBookCarsMutation();
   const {
@@ -45,15 +46,12 @@ const BookCar = () => {
       );
       return;
     }
-
     data.carId = car._id;
-    console.log(data);
+
     try {
-      const my_book: any = await bookCars(data).unwrap();
-      console.log(my_book);
-      window.location.href = my_book.data.payment_url;
+      await bookCars(data).unwrap();
       toast.success("Booking successful!");
-      // navigate("/user/all-bookings");
+      navigate("/user/all-bookings");
     } catch (err: any) {
       toast.error(err?.data?.message);
     }

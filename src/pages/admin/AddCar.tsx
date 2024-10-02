@@ -17,7 +17,6 @@ const AddCar = () => {
   } = useForm<FieldValues>({ mode: "onChange" });
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     try {
       await addCars(data).unwrap();
       toast.success("Car added successfully!");

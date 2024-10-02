@@ -4,6 +4,7 @@ import {
   useGetAllUsersQuery,
   useUpdateUserMutation,
 } from "../../redux/api/authApi";
+import { toast } from "react-toastify";
 
 const ManageUser = () => {
   const [updateUser] = useUpdateUserMutation();
@@ -37,17 +38,14 @@ const ManageUser = () => {
         ? "Are you want to sure to block user?"
         : "Are you want to sure to unblock user?"
     );
-    console.log(id, status);
 
     if (confirmed) {
       try {
         await updateUser({ id, status }).unwrap();
-        console.log("role updated successfully.");
+        toast.success("role updated successfully.");
       } catch (error) {
-        console.error("Failed to update user: ", error);
+        toast.error("Failed to update user: ");
       }
-    } else {
-      console.log("user update canceled.");
     }
   };
   return (

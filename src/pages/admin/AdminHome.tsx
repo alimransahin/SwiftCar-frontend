@@ -22,10 +22,9 @@ const AdminHome = () => {
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
-  console.log(bookings);
+ 
   const totalCars = carsRes.data?.length || 0;
-  // const availableCars =
-  //   carsRes.data?.filter((car) => car.status === "available").length || 0;
+ 
   const rentedCars =
     bookings.data?.filter((booking) => booking.status === "Approved").length ||
     0;

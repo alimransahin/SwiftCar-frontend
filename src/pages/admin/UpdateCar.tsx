@@ -7,6 +7,7 @@ import {
   useGetSingleCarQuery,
   useUpdateCarMutation,
 } from "../../redux/api/carApi";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const UpdateCar = () => {
   const { id } = useParams<{ id: string }>(); // Get car id from the URL
@@ -49,7 +50,7 @@ const UpdateCar = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   return (

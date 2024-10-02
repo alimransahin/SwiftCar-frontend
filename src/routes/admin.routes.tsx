@@ -3,6 +3,7 @@ import AdminHome from "../pages/admin/AdminHome";
 import BookingManage from "../pages/admin/BookingManage";
 import DeleteCar from "../pages/admin/DeleteCar";
 import ManageUser from "../pages/admin/ManageUser";
+import ReturnCar from "../pages/admin/ReturnCar";
 import UpdateCar from "../pages/admin/UpdateCar";
 import NotFound from "../pages/errorPage/NotFound";
 import UpdateProfile from "../pages/UpdateProfile";
@@ -20,7 +21,7 @@ export const adminRoutes = [
     element: <UpdateProfile />,
   },
   {
-    name: "Car Management",
+    name: "Manage-Cars",
     children: [
       {
         name: "All Car",
@@ -44,9 +45,14 @@ export const adminRoutes = [
     ],
   },
   {
-    name: "Booking",
+    name: "Manage Bookings",
     path: "booking",
     element: <BookingManage />,
+  },
+  {
+    name: "Return Cars",
+    path: "return",
+    element: <ReturnCar />,
   },
   {
     name: "User",

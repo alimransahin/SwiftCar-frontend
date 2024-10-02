@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import LeftSideBar from "./LeftSideBar";
@@ -9,18 +9,28 @@ import "react-toastify/dist/ReactToastify.css";
 const { Content } = Layout;
 
 const Dashboard: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <>
-      <Layout className="w-full">
-        <LeftSideBar />
+      <Layout
+        className="w-full"
+        style={{ background: isDarkMode ? "#001529" : "#ffffff" }}
+      >
+        <LeftSideBar isDarkMode={isDarkMode} />
         <Layout>
-          <DashboardHeader />
-
+          <DashboardHeader isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{
                 padding: 24,
                 minHeight: 360,
+                background: "#f0f2f5",
+                color: "#000000",
               }}
             >
               <Outlet />
@@ -30,7 +40,7 @@ const Dashboard: React.FC = () => {
       </Layout>
       <ToastContainer
         position="top-center"
-        theme="colored"
+        theme={isDarkMode ? "dark" : "colored"}
         autoClose={1000}
         pauseOnHover={false}
       />

@@ -1,17 +1,8 @@
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import {
-  useGetUserBookingsQuery,
-  useMakePaymentMutation,
-} from "../../redux/api/bookApi";
+import { useGetUserBookingsQuery } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
-import { toast } from "react-toastify";
-import { useState } from "react";
-import { Loader } from "lucide-react";
 
 const MyBookings = () => {
-  const [loading, setLoading] = useState<string | null>(null);
-  const [makePayment] = useMakePaymentMutation();
-
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -20,23 +11,6 @@ const MyBookings = () => {
     data: ICarsResponse;
     error: any;
     isLoading: boolean;
-  };
-
-  const handlePayment = async (id: string) => {
-    try {
-      setLoading(id);
-      const currentPageLink = window.location.href;
-      const res: any = await makePayment({ id, currentPageLink }).unwrap();
-      const payment_data = res.data;
-      if (payment_data.errors) {
-        toast.error(payment_data.errors[0]);
-      }
-      window.location.href = payment_data.payment_url;
-    } catch (error) {
-      console.error("Failed to make Payment: ", error);
-    } finally {
-      setLoading(null); // Reset loading state once the process is done
-    }
   };
 
   if (isLoading || error) {
@@ -110,9 +84,14 @@ const MyBookings = () => {
 
                   <td className="py-2 px-4 border-t">
                     {booking?.status === "Pending" ? (
-                      <button className="text-white w-full bg-primary  hover:bg-blue-600 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
-                        Edit Book
-                      </button>
+                      <div className="flex space-x-2">
+                        <button className="text-white w-full bg-primary  hover:bg-blue-600 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
+                          Edit Book
+                        </button>
+                        <button className="text-white w-full bg-rose-600  hover:bg-rose-700 inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg">
+                          Delete
+                        </button>
+                      </div>
                     ) : (
                       <button className=" bg-gray-300 w-full text-gray-600 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
                         Edit Book

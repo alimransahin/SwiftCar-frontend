@@ -7,9 +7,14 @@ import { AuthContext } from "../../utils/AuthContext";
 import { SidebarMenuItemsGenerator } from "../../utils/SidebarMenuItemsGenerator";
 import { adminRoutes } from "../../routes/admin.routes";
 import { userRoutes } from "../../routes/user.routes";
+
+interface LeftSideBarProps {
+  isDarkMode: boolean;
+}
+
 let sidebarItems: ISidebarItem[] = [];
 
-const LeftSideBar = () => {
+const LeftSideBar: React.FC<LeftSideBarProps> = ({ isDarkMode }) => {
   const userRole = {
     ADMIN: "admin",
     USER: "user",
@@ -28,26 +33,31 @@ const LeftSideBar = () => {
     default:
       break;
   }
+
   return (
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-      style={{ height: "100vh", position: "sticky", top: "0", left: "0" }}
+      style={{ height: "100%", position: "sticky", top: "0", left: "0" }}
+      className="text-left "
     >
       <Link
         to="/"
-        className="bg-blue-950 text-white inline-block w-full font-semibold text-lg py-5 hover:bg-violet-950 "
+        className={`inline-block w-full text-center font-semibold text-lg py-5 ${
+          isDarkMode
+            ? "bg-gray-900 text-white hover:bg-gray-700"
+            : "bg-white text-black "
+        }`}
       >
         <h1>Home</h1>
       </Link>
 
-      <div className="bg-gradient-to-b from-blue-950 to-violet-950 h-full text-white">
+      <div className={`h-full ${isDarkMode ? "bg-gray-900" : "bg-gray-100"}`}>
         <Menu
-          theme="dark"
+          theme={isDarkMode ? "dark" : "light"}
           mode="inline"
           defaultSelectedKeys={["4"]}
           items={sidebarItems}
-          className="bg-transparent text-white text-left"
         />
       </div>
     </Sider>

@@ -50,7 +50,6 @@ const authApi = baseApi.injectEndpoints({
     //update user
     updateUser: builder.mutation({
       query: ({ id, status }: { id: string; status: string }) => {
-        console.log("Updating user:", { id, status });
         return {
           url: `/user/${id}`,
           method: "PUT",

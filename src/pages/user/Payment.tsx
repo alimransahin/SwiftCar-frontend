@@ -33,7 +33,7 @@ const Payment = () => {
       }
       window.location.href = payment_data.payment_url;
     } catch (error) {
-      console.error("Failed to make Payment: ", error);
+      toast.error("Failed to make Payment: ");
     } finally {
       setLoading(null); // Reset loading state once the process is done
     }

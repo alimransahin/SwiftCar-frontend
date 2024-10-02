@@ -9,6 +9,7 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 import { AuthContext } from "../../utils/AuthContext";
 import { Edit, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const GetAllCar = () => {
   const { user } = useContext<any>(AuthContext);
@@ -57,12 +58,10 @@ const GetAllCar = () => {
       try {
         await deleteCar(id).unwrap();
         // Optionally show a success message or handle post-deletion logic
-        console.log("Car deleted successfully.");
+        toast.success("Car deleted successfully.");
       } catch (error) {
-        console.error("Failed to delete the car: ", error);
+        toast.error("Failed to delete the car: ");
       }
-    } else {
-      console.log("Car deletion canceled.");
     }
   };
 

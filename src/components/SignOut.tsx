@@ -5,7 +5,12 @@ import { CircleUserRound } from "lucide-react";
 import { AuthContext } from "../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const SignOut: React.FC = () => {
+interface SignOutProps {
+  isDarkMode?: boolean; // Optional prop with default value set later
+}
+
+const SignOut: React.FC<SignOutProps> = ({ isDarkMode = false }) => {
+  // Default to false
   const navigate = useNavigate();
   const { user, logout } = useContext<any>(AuthContext);
 
@@ -22,15 +27,22 @@ const SignOut: React.FC = () => {
       key: "logout",
     },
   ];
+
   return (
     <Dropdown
-      className="cursor-pointer mx-2"
+      className={`cursor-pointer mx-2 ${
+        isDarkMode ? "text-white" : "text-black"
+      }`}
       menu={{ items: menuItems, onClick: handleMenuClick }}
     >
       <a onClick={(e) => e.preventDefault()}>
-        <Space>
-          <CircleUserRound />
-          <b>{user?.name}</b>
+        <Space className={`hover:text-${isDarkMode ? "gray-300" : "gray-700"}`}>
+          <CircleUserRound
+            className={`${isDarkMode ? "text-white" : "text-black"}`}
+          />
+          <b className={`${isDarkMode ? "text-white" : "text-black"}`}>
+            {user?.name}
+          </b>
         </Space>
       </a>
     </Dropdown>

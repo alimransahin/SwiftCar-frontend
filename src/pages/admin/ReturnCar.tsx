@@ -1,13 +1,13 @@
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import {
-  useApproveMutation,
   useGetAllBookingsQuery,
+  useIsReturnMutation,
 } from "../../redux/api/bookApi";
 import { ICarsResponse } from "../../utils/interface";
 import { toast } from "react-toastify";
 
-const BookingManage = () => {
-  const [approve] = useApproveMutation();
+const ReturnCar = () => {
+  const [isReturn] = useIsReturnMutation();
 
   const {
     data: userRes = {} as ICarsResponse,
@@ -22,32 +22,29 @@ const BookingManage = () => {
   if (isLoading || error) {
     return <LoadingSpinner />;
   }
-  const userBookings = userRes.data;
+  const userBookings = userRes.data?.filter(
+    (booking) => booking.status === "Approved"
+  );
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
 
-  const handleApprove = async (id: string, status: string) => {
-    const confirmed = window.confirm(
-      status === "approve"
-        ? "Are you sure you want to approve this book?"
-        : "Are you sure you want to cancel this book?"
-    );
-
+  const handleReturn = async (id: string) => {
+    const confirmed = window.confirm("Are you sure want return this car?");
     if (confirmed) {
       try {
-        await approve({ id, status }).unwrap();
-        toast.success("Car deleted successfully.");
+        await isReturn(id).unwrap();
       } catch (error) {
-        toast.error("Failed to delete the car.");
+        toast.error("Failed to return the car ");
       }
     }
   };
 
   return (
     <div className="p-8 bg-white h-full">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-4">My Bookings</h3>
+      <h3 className="text-2xl font-semibold text-gray-800 mb-4">Car Rreturn</h3>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -103,28 +100,16 @@ const BookingManage = () => {
                   <td className="py-2 px-4 border-t">{booking.dropOffTime}</td>
 
                   <td className="py-2 px-4 border-t">
-                    {booking?.status === "Pending" ? (
-                      <div className="flex space-x-4">
-                        <button
-                          onClick={() => handleApprove(booking._id, "approve")}
-                          className="text-white w-full bg-green-600  hover:bg-green-700 inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg"
-                        >
-                          Approve
-                        </button>
-                        <button
-                          onClick={() => handleApprove(booking._id, "cancle")}
-                          className="text-white w-full  bg-rose-600  hover:bg-rose-700  inline-block transition-colors px-3 py-3 font-bold rounded-lg shadow-lg"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    ) : booking?.status === "Cancled" ? (
-                      <button className=" text-black w-full bg-rose-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
-                        Cancled
+                    {booking?.isReturn !== true ? (
+                      <button
+                        onClick={() => handleReturn(booking._id)}
+                        className=" text-black w-full bg-primary  inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg "
+                      >
+                        Return
                       </button>
                     ) : (
-                      <button className=" text-black w-full bg-green-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
-                        Approved
+                      <button className=" text-gray-600 w-full bg-gray-300 cursor-not-allowed inline-block transition-colors px-6 py-3 font-bold rounded-lg shadow-lg ">
+                        Return
                       </button>
                     )}
                   </td>
@@ -138,4 +123,4 @@ const BookingManage = () => {
   );
 };
 
-export default BookingManage;
+export default ReturnCar;

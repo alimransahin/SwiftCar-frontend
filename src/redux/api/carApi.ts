@@ -45,7 +45,6 @@ const carApi = baseApi.injectEndpoints({
     // Edit car
     updateCar: builder.mutation({
       query: ({ id, data }: { id: string; data: Partial<ICar> }) => {
-        console.log("Updating Car:", { id, data });
         return {
           url: `/cars/${id}`,
           method: "PUT",
