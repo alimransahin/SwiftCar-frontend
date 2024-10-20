@@ -6,7 +6,6 @@ A user-friendly and responsive web application for browsing, booking, and managi
 
 - **User Authentication**: Secure login, registration, and password recovery.
 - **User Roles**: Admin and user roles with different permissions.
-- **Post Creation**: Users can create, edit, and delete car listings.
 - **Booking Management**: Manage upcoming and past bookings.
 - **Payment System**: Integration with local payment gateways for secure transactions.
 - **Search & Filter**: Easily search for cars and filter by type, price, and other features.
@@ -15,11 +14,11 @@ A user-friendly and responsive web application for browsing, booking, and managi
 
 ## Tech Stack
 
-- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Frontend**: React Vite, Redux, TypeScript, Tailwind CSS
 - **Backend**: Node.js, Express, Mongoose
 - **Database**: MongoDB
 - **Deployment**: Vercel
-- **Payment Integration**: AmarPay/SSLCommerz
+- **Payment Integration**: AmarPay
 
 ## Local Installation
 
