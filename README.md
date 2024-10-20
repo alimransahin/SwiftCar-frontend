@@ -33,7 +33,12 @@ Follow the steps below to set up the project locally:
 ### Installation Steps
 
 1. **Clone the repository**:
-
    ```bash
    git clone https://github.com/yourusername/car-rental-reservation-system.git
    cd car-rental-reservation-system
+2. **Install Dependencies
+   ```bash
+   npm install
+3. **Start the Development Server:
+  ```bash
+   npm run dev
