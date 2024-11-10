@@ -36,6 +36,12 @@ export interface IUsersResponse {
   message: string;
   data: IUser[];
 }
+export interface IUserResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: IUser;
+}
 export interface IUser {
   name: string;
   email: string;

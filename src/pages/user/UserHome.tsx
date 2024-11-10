@@ -6,7 +6,8 @@ import { useGetUserBookingsQuery } from "../../redux/api/bookApi";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const UserHome = () => {
-  const { user } = useContext<any>(AuthContext);
+  const { user } = useContext(AuthContext) || {};
+
   const {
     data: userRes = {} as ICarsResponse,
     error,
@@ -15,21 +16,27 @@ const UserHome = () => {
     data: ICarsResponse;
     error: any;
     isLoading: boolean;
-  }; // Fetch user bookings based on user ID
+  };
 
-  if (isLoading || error) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
-  const userBookings = userRes.data;
-  const upcomingRentals = userBookings.filter(
-    (booking) => booking.status === "Approved"
-  );
-  const pendingRentals = userBookings.filter(
-    (booking) => booking.status === "Pending"
-  );
-  const usedRentals = userBookings.filter(
-    (booking) => booking.status === "Done"
-  );
+
+  const userBookings = userRes?.data || [];
+
+  let upcomingRentals = [];
+  let pendingRentals = [];
+  let usedRentals = [];
+
+  if (!error && userBookings) {
+    upcomingRentals = userBookings.filter(
+      (booking) => booking.status === "Approved"
+    );
+    pendingRentals = userBookings.filter(
+      (booking) => booking.status === "Pending"
+    );
+    usedRentals = userBookings.filter((booking) => booking.status === "Done");
+  }
 
   return (
     <div className="p-8 bg-white h-full">

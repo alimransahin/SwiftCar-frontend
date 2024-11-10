@@ -13,14 +13,15 @@ const UpComingRental = () => {
     isLoading: boolean;
   };
 
-  if (isLoading || error) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
-
-  // Filter confirmed bookings
-  const userBookings = userRes.data.filter(
-    (booking) => booking.status === "Approved"
-  );
+  let userBookings: IBooking[] = [];
+  if (!error)
+    // Filter confirmed bookings
+    userBookings = userRes.data.filter(
+      (booking) => booking.status === "Approved"
+    );
 
   // Initialize topBookings as an empty array
   let topBookings: any[] = [];

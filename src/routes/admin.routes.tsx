@@ -6,6 +6,7 @@ import ManageUser from "../pages/admin/ManageUser";
 import ReturnCar from "../pages/admin/ReturnCar";
 import UpdateCar from "../pages/admin/UpdateCar";
 import NotFound from "../pages/errorPage/NotFound";
+import MyProfile from "../pages/etc/MyProfile";
 import UpdateProfile from "../pages/UpdateProfile";
 import GetAllCar from "../pages/user/GetAllCar";
 
@@ -14,6 +15,11 @@ export const adminRoutes = [
     name: "Dashboard",
     path: "dashboard",
     element: <AdminHome />,
+  },
+  {
+    name: "My Profile",
+    path: "profile",
+    element: <MyProfile />,
   },
   {
     name: "Update Profile",

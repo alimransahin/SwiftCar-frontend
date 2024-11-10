@@ -1,4 +1,5 @@
 import NotFound from "../pages/errorPage/NotFound";
+import MyProfile from "../pages/etc/MyProfile";
 import UpdateProfile from "../pages/UpdateProfile";
 import BookCar from "../pages/user/BookCar";
 import GetAllCar from "../pages/user/GetAllCar";
@@ -12,6 +13,11 @@ export const userRoutes = [
     name: "Dashboard",
     path: "dashboard",
     element: <UserHome />,
+  },
+  {
+    name: "My Profile",
+    path: "profile",
+    element: <MyProfile />,
   },
   {
     name: "Update Profile",

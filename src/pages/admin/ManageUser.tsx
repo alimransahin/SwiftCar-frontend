@@ -21,14 +21,6 @@ const ManageUser = () => {
     return <LoadingSpinner />;
   }
   const users = userRes.data;
-  //
-  //
-  //
-  //
-  //
-  //!--- previous---!
-  //   const [approve] = useApproveMutation();
-  //   const [isReturn] = useIsReturnMutation();
 
   const handleStatus = async (id: string, status: string) => {
     const confirmed = window.confirm(
